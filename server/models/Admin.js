@@ -3,8 +3,8 @@ const { Schema, SchemaTypes } = mongoose;
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 
-const UserSchema = new Schema({
-    user_id: {
+const AdminSchema = new Schema({
+    admin_id: {
         type: SchemaTypes.String,
         unique: true,
         index: true
@@ -28,12 +28,6 @@ const UserSchema = new Schema({
         match: /.+@.+\..+/,
         index: true,
         lowercase: true
-    },
-    bio: {
-        type: SchemaTypes.String,
-        maxlength: 500,
-        index: true,
-        default: ''
     },
     profile_pic: {
         type: SchemaTypes.String,
@@ -63,10 +57,6 @@ const UserSchema = new Schema({
         unique: true,
         index: true
     },
-    primarySport: {
-        type: SchemaTypes.String,
-        enum: ['Ride', 'Run', 'Swim', 'Walk', 'Workout'],
-    },
     dateOfBirth: {
         type: SchemaTypes.Date,
         required: true
@@ -83,10 +73,10 @@ const UserSchema = new Schema({
     }
 );
 
-UserSchema.pre('save', async function (next) {
-    // Generate unique user_id if not present
-    if (!this.user_id) {
-        this.user_id = uuidv4();
+AdminSchema.pre('save', async function (next) {
+    // Generate unique admin_id if not present
+    if (!this.admin_id) {
+        this.admin_id = uuidv4();
     }
 
     // Trim and clean name
@@ -102,10 +92,10 @@ UserSchema.pre('save', async function (next) {
 });
 
 // Compare entered password with hashed password
-UserSchema.methods.matchPassword = async function (enteredPassword) {
+AdminSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const User = mongoose.model('User', UserSchema);
+const Admin = mongoose.model('Admin', AdminSchema);
 
-module.exports = User;
+module.exports = Admin;
