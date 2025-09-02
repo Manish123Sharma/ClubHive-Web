@@ -63,7 +63,7 @@ exports.uploadProfilePic = [
 
             // upload to cloudinary
             const result = await cloudinary.uploader.upload(filePath, {
-                folder: "profile_pics",
+                folder: "profile_pic",
             });
 
             // delete local file after upload
