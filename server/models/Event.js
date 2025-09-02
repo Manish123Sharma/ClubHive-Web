@@ -10,12 +10,47 @@ const EventSchema = new Schema({
     },
     name: {
         type: SchemaTypes.String,
-        required: true
+        required: true,
+        unique: true
     },
     category: {
         type: SchemaTypes.String,
         required: true
-    }
+    },
+    description: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    eventDate: {
+        type: SchemaTypes.Date,
+        required: true
+    },
+    eventTime: {
+        type: SchemaTypes.String,
+        required: true,
+        match: /^\d{2}:[0-5]\d:[0-5]\d$/,
+        default: '00:00:00'
+    },
+    registrationStart: {
+        type: SchemaTypes.Date,
+        required: true
+    },
+    registrationEnd: {
+        type: SchemaTypes.Date,
+        required: true
+    },
+    registrationEndTime: {
+        type: SchemaTypes.String,
+        required: true,
+        match: /^\d{2}:[0-5]\d:[0-5]\d$/,
+        default: '00:00:00'
+    },
+    photos: [
+        {
+            type: SchemaTypes.String,
+            default: ''
+        }
+    ]
 },
     {
         timestamps: true
