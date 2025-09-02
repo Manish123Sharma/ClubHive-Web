@@ -6,6 +6,10 @@ client/.env
 server/node_modules/
 server/.env
 
+#Admin
+admin/node_modules/
+admin/.env
+
 node_modules/
 
 # General
