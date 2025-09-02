@@ -71,15 +71,17 @@ const UserSchema = new Schema({
         type: SchemaTypes.Date,
         required: true
     },
-    roler: {
+    role: {
         type: SchemaTypes.String,
         enum: ['User', 'Admin'],
         default: 'User'
     },
-    eventsParticipated: {
-        type: SchemaTypes.ObjectId,
-        ref: 'Event'
-    }
+    eventsParticipated: [
+        {
+            type: SchemaTypes.ObjectId,
+            ref: 'Events'
+        }
+    ]
 },
     {
         timestamps: true
