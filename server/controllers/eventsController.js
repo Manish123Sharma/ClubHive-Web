@@ -16,6 +16,7 @@ exports.createEvent = [
     async (req, res) => {
         try {
             const {
+                organizer_id,
                 name,
                 category,
                 description,
@@ -23,7 +24,10 @@ exports.createEvent = [
                 eventTime,
                 registrationStart,
                 registrationEnd,
-                registrationEndTime
+                registrationEndTime,
+                city,
+                state,
+                country
             } = req.body;
 
             let photoUrls = [];
@@ -42,6 +46,10 @@ exports.createEvent = [
             }
 
             const event = await Event.create({
+                organizer_id,
+                city,
+                state,
+                country,
                 name,
                 category,
                 description,
