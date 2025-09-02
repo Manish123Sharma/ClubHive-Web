@@ -5,8 +5,23 @@ const { v4: uuidv4 } = require('uuid');
 const EventSchema = new Schema({
     event_id: {
         type: SchemaTypes.String,
-        unique: true,
         index: true
+    },
+    organizer_id: {
+        type: SchemaTypes.ObjectId,
+        required: true
+    },
+    city: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    state: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    country: {
+        type: SchemaTypes.String,
+        required: true
     },
     name: {
         type: SchemaTypes.String,
