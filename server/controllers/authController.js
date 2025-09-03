@@ -225,12 +225,16 @@ exports.getUserbyName = async (req, res) => {
 
 exports.getUserbyId = async (req, res) => {
     try {
-        const { user_id } = req.params;
+        const user_id = req.query.query;
+
+        if (!user_id) {
+            return res.status(400).json({ message: "User ID is required" });
+        }
 
         const user = await User.findById(user_id);
 
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "Admin not found" });
         }
 
         res.json(user);
@@ -261,12 +265,16 @@ exports.getAdminbyName = async (req, res) => {
 
 exports.getAdminbyId = async (req, res) => {
     try {
-        const { admin_id } = req.params;
+        const admin_id = req.query.query;
+
+        if (!admin_id) {
+            return res.status(400).json({ message: "Admin ID is required" });
+        }
 
         const admin = await Admin.findById(admin_id);
 
         if (!admin) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "Admin not found" });
         }
 
         res.json(admin);
