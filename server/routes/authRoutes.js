@@ -20,4 +20,12 @@ router.get('/getAll', authController.getAll); // For getting all Users
 
 router.get('/getAllAdmin', authController.getAllAdmin); // For Getting all Admins
 
+router.get('/getUserbyName', authController.getUserbyName);
+
+router.get('/getUserbyId', authController.getUserbyId);
+
+router.get('/getAdminbyName', authController.getAdminbyName);
+
+router.get('/getAdminbyId', authController.getAdminbyId);
+
 module.exports = router;
