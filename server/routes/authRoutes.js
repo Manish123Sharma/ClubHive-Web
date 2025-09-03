@@ -16,8 +16,8 @@ router.post('/loginAdmin', authController.loginAdmin);
 
 router.post('/updatePassAdmin', authController.updatePasswordAdmin);
 
-router.get('/getAll', authController.getAll);
+router.get('/getAll', authController.getAll); // For getting all Users
 
-router.get('/getAllAdmin', authController.getAllAdmin);
+router.get('/getAllAdmin', authController.getAllAdmin); // For Getting all Admins
 
 module.exports = router;
