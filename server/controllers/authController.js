@@ -203,3 +203,75 @@ exports.getAllAdmin = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
+
+exports.getUserbyName = async (req, res) => {
+    try {
+        const query = req.query.query;
+        if (!query) {
+            return res.status(400).json({ message: "Query is required" });
+        }
+
+        const user = await User.find({
+            $or: [
+                { fullName: { $regex: query, $options: "i" } }
+            ]
+        });
+
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+exports.getUserbyId = async (req, res) => {
+    try {
+        const { user_id } = req.params;
+
+        const user = await User.findById(user_id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json(user);
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+exports.getAdminbyName = async (req, res) => {
+    try {
+        const query = req.query.query;
+        if (!query) {
+            return res.status(400).json({ message: "Query is required" });
+        }
+
+        const admin = await Admin.find({
+            $or: [
+                { fullName: { $regex: query, $options: "i" } }
+            ]
+        });
+
+        res.json(admin);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+exports.getAdminbyId = async (req, res) => {
+    try {
+        const { admin_id } = req.params;
+
+        const admin = await Admin.findById(admin_id);
+
+        if (!admin) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json(admin);
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
