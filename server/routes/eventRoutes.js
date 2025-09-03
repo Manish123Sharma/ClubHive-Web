@@ -10,4 +10,12 @@ router.post('/updateEvent', eventsController.updateEvent);
 
 router.get('/getAll', eventsController.getAll); //For getting all Events
 
+router.get('/getEventbyName', eventsController.getEventbyName);
+
+router.get('/getEventbyCity', eventsController.getEventbyCity);
+
+router.get('/getEventbyCountry', eventsController.getEventbyCountry);
+
+router.get('/getEventbyState', eventsController.getEventbyState);
+
 module.exports = router;
