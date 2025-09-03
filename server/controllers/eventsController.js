@@ -168,3 +168,81 @@ exports.getAll = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+exports.getEventbyName = async (req, res) => {
+    try {
+        const query = req.query.query;
+        if (!query) {
+            return res.status(400).json({ message: "Query is required" });
+        }
+
+        const events = await Event.find({
+            $or: [
+                { name: { $regex: query, $options: "i" } },
+                { category: { $regex: query, $options: "i" } },
+                { description: { $regex: query, $options: "i" } }
+            ]
+        });
+
+        res.json(events);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+exports.getEventbyCity = async (req, res) => {
+    try {
+        const query = req.query.query;
+        if (!query) {
+            return res.status(400).json({ message: "Query is required" });
+        }
+
+        const events = await Event.find({
+            $or: [
+                { city: { $regex: query, $options: "i" } }
+            ]
+        });
+
+        res.json(events);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+exports.getEventbyCountry = async (req, res) => {
+    try {
+        const query = req.query.query;
+        if (!query) {
+            return res.status(400).json({ message: "Query is required" });
+        }
+
+        const events = await Event.find({
+            $or: [
+                { country: { $regex: query, $options: "i" } }
+            ]
+        });
+
+        res.json(events);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+exports.getEventbyState = async (req, res) => {
+    try {
+        const query = req.query.query;
+        if (!query) {
+            return res.status(400).json({ message: "Query is required" });
+        }
+
+        const events = await Event.find({
+            $or: [
+                { state: { $regex: query, $options: "i" } }
+            ]
+        });
+
+        res.json(events);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
