@@ -6,30 +6,96 @@ const CountrySchema = new Schema({
     country_id: {
         type: SchemaTypes.String,
         unique: true,
-        index: true
+        index: true,
+        default: uuidv4
     },
-    geonameId: {
-        type: Number,
-        unique: true,
-        required: true
-    },
-    countryCode: {
-        type: String,
-        required: true,
-        unique: true
+    id: {
+        type: SchemaTypes.Number,
+        // unique: true,
+        // required: true
     },
     name: {
-        type: String,
+        type: SchemaTypes.String,
         required: true
     },
-    population: {
-        type: Number
+    iso3: {
+        type: SchemaTypes.String,
+        required: true
     },
-    areaInSqKm: {
-        type: Number
+    iso2: {
+        type: SchemaTypes.String,
+        required: true
     },
-    continent: {
-        type: String
+    numeric_code: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    phonecode: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    capital: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    currency: {
+        type: SchemaTypes.String,
+        required: true,
+        // unique: true
+    },
+    currency_name: {
+        type: SchemaTypes.String,
+        required: true,
+        // unique: true
+    },
+    currency_symbol: {
+        type: SchemaTypes.String,
+        required: true,
+        // unique: true
+    },
+    tld: {
+        type: SchemaTypes.String,
+        // required: true
+    },
+    native: {
+        type: SchemaTypes.String,
+        // required: true
+    },
+    region: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    region_id: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    subregion: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    subregion_id: {
+        type: SchemaTypes.String,
+        required: true,
+    },
+    nationality: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    latitude: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    longitude: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    emoji: {
+        type: SchemaTypes.String,
+        // required: true
+    },
+    emojiU: {
+        type: SchemaTypes.String,
+        // required: true
     }
 },
     {
