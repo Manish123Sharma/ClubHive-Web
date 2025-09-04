@@ -10,8 +10,8 @@ const CountrySchema = new Schema({
     },
     geonameId: {
         type: Number,
-        required: true,
-        unique: true
+        unique: true,
+        required: true
     },
     countryCode: {
         type: String,
