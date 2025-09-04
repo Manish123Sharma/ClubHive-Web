@@ -3,15 +3,16 @@ import './styles/Register.css';
 
 const Register = () => {
 
-    const[fullName, setfullName] = useState('');
-    const[password, setPassword] = useState('');
-    const[email, setEmail] = useState('');
+    const [fullName, setfullName] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
     // const[city, setCity] = useState('');
     // const[state, setState] = useState('');
+    // const[country, setCountry] = useState('');
     // const[gender, setGender] = useState('');
-    // const[phoneNumber, setPhoneNumber] = useState('');
-    // const[primarySport, setPrimarySport] = useState('');
-    // const[dob, setDOB] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [primarySport, setPrimarySport] = useState('');
+    const [dob, setDOB] = useState('')
 
     return (
         <div className="signup-container">
@@ -32,14 +33,20 @@ const Register = () => {
                 <div className="signup-card">
                     <form>
                         {/* <div className="form-row"> */}
-                            <input type="text" placeholder='Full Name' value={fullName} onChange={(e) => {
-                                setfullName(e.target.value);
-                            }} />
+                        <input type="text" placeholder='Full Name' value={fullName} onChange={(e) => {
+                            setfullName(e.target.value);
+                        }} />
                         {/* </div> */}
                         <input type="email" placeholder='Email' value={email} onChange={(e) => {
                             setEmail(e.target.value);
                         }} />
                         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input type="number" placeholder='Phone Number' value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                        <input type="text" placeholder='Primary Sport' value={primarySport} onChange={(e) => setPrimarySport(e.target.value)} />
+                        <input type="date" value={dob} onChange={(e) => {
+                            setDOB(e.target.value);
+                            console.log(dob);
+                        }} />
                     </form>
                 </div>
             </div>

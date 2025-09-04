@@ -79,14 +79,17 @@
     backdrop-filter: saturate(200%) blur(25px);
     border-radius: 10px;
     padding: 2rem;
-    /* width: 90%; */
-    /* max-width: 400px; */
+    width: 90%;
+    max-width: 400px;
     z-index: 1;
 }
 
 .signup-card input[type="text"],
 .signup-card input[type="email"],
-.signup-card input[type="password"] {
+.signup-card input[type="password"],
+.signup-card input[type="number"],
+.signup-card input[type="date"]
+{
     width: 100%;
     padding: 0.5rem;
     margin-bottom: 1rem;
