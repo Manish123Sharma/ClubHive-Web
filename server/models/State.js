@@ -6,20 +6,42 @@ const StateSchema = new Schema({
     state_id: {
         type: SchemaTypes.String,
         unique: true,
-        index: true
+        index: true,
+        default: uuidv4
     },
-    geonameId: {
-        type: Number,
-        required: true,
-        unique: true
+    id: {
+        type: SchemaTypes.Number,
+        // required: true,
+        // unique: true
     },
     name: {
-        type: String,
+        type: SchemaTypes.String,
         required: true
     },
-    countryCode: {
-        type: String,
+    iso2: {
+        type: SchemaTypes.String,
         required: true
+    },
+    iso3166_2: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    latitude: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    longitude: {
+        type: SchemaTypes.String,
+        required: true
+    },
+    type: {
+        type: SchemaTypes.String,
+        // required: true
+    },
+    country_id: {
+        type: SchemaTypes.String,
+        required: true,
+        index: true
     }
 },
     {
