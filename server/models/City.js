@@ -6,26 +6,33 @@ const CitySchema = new Schema({
     city_id: {
         type: SchemaTypes.String,
         unique: true,
-        index: true
+        index: true,
+        default: uuidv4
     },
-    geonameId: {
-        type: Number,
-        required: true,
-        unique: true
+    id: {
+        type: SchemaTypes.Number,
     },
     name: {
-        type: String,
+        type: SchemaTypes.String,
         required: true
     },
-    countryCode: {
-        type: String,
+    latitude: {
+        type: SchemaTypes.String,
         required: true
     },
-    population: {
-        type: Number
+    longitude: {
+        type: SchemaTypes.String,
+        required: true
     },
-    timezone: {
-        type: String
+    state_id: {   // 👈 Foreign key (UUID from State)
+        type: SchemaTypes.String,
+        required: true,
+        index: true
+    },
+    country_id: {  // 👈 Foreign key (UUID from Country)
+        type: SchemaTypes.String,
+        required: true,
+        index: true
     }
 },
     {
