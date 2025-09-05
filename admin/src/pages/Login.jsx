@@ -58,7 +58,7 @@ const Login = () => {
             </div>
 
             <div className="login-form">
-                <h1 className='heading'>Login</h1>
+                <h1 className='heading'>Login Admin</h1>
 
                 <form onSubmit={handleSubmit}>
                     <input type="email" placeholder="Email address" value={email} onChange={handleEmail} className="input-field" />
