@@ -68,8 +68,9 @@ const UserSchema = new Schema({
         enum: ['Ride', 'Run', 'Swim', 'Walk', 'Workout'],
     },
     dateOfBirth: {
-        type: SchemaTypes.Date,
+        type: SchemaTypes.String,
         required: true
+        // default: ''
     },
     eventsParticipated: [
         {

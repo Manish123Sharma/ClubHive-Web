@@ -4,11 +4,18 @@ const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const geoRoutes = require('./routes/geoRoutes');
+const cors = require('cors'); 
 
 dotenv.config();
 require('./db/connect');
 
 const app = express();
+
+app.use(cors({
+    origin: "http://localhost:5173", // your frontend URL
+    credentials: true, // allow cookies/auth headers
+}));
+
 
 app.use(express.json());
 app.use('/auth', authRoutes);
