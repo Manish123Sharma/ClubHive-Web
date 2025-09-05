@@ -3,7 +3,10 @@ import Header from '../components/Header/Header';
 
 const Home = () => {
     return (
-        <Header />
+        <>
+            <Header />
+            <h2>Browse Category</h2>
+        </>
     );
 }
 
