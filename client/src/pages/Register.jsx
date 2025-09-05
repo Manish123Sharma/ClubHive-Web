@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import './styles/Register.css';
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import emailRegister from '../utils/emailRegister';
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../redux/slices/authSlice";
+import { toast } from "react-toastify";
 
 const Register = () => {
+
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.auth);
 
     const [fullName, setfullName] = useState('');
     const [password, setPassword] = useState('');
@@ -16,7 +21,6 @@ const Register = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [primarySport, setPrimarySport] = useState('');
     const [dob, setDOB] = useState('');
-    const [loading, setLoading] = useState(false);
 
     const handleName = (e) => {
         setfullName(e.target.value);
@@ -77,23 +81,32 @@ const Register = () => {
         setState('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        emailRegister({
-            setLoading,
+        if (!fullName || !email || !password || !phoneNumber || !primarySport || !dob || !country || !state || !city || !gender) {
+            toast.error('Please fill all the fields..');
+            return;
+        }
+        const userData = {
             fullName,
             password,
             email,
             phoneNumber,
             primarySport,
-            dob,
+            dateOfBirth: dob,
             country,
             state,
             city,
             gender,
-            resetFields
-        });
+        };
+        const result = await dispatch(register(userData));
+
+        if (result.meta.requestStatus === "fulfilled") {
+            toast.success("Registration Successful!");
+            resetFields();
+        } else {
+            toast.error(result.payload?.message || "Registration failed");
+        }
     };
 
     return (
@@ -150,18 +163,12 @@ const Register = () => {
                                 <option value="others">Others</option>
                             </select>
                         </div>
-                        {loading
-                            ?
-                            <button disabled type="submit" className="signup-btn">
-                                Loading...
-                            </button>
-                            :
-                            <button type="submit" className="signup-btn">
-                                Register
-                            </button>
-                        }
+                        <button type="submit" className="signup-btn" disabled={loading}>
+                            {loading ? "Registering..." : "Register"}
+                        </button>
 
                     </form>
+                    {error && <p style={{ color: "red" }}>{error}</p>}
                     <div className="social-section">
                         <p>or sign up with:</p>
                         <div className="social-icons">
