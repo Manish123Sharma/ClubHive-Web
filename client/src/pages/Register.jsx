@@ -65,10 +65,35 @@ const Register = () => {
         console.log(e.target.value);
     };
 
+    const resetFields = () => {
+        setfullName('');
+        setEmail('');
+        setPhoneNumber('');
+        setPassword('');
+        setCity('');
+        setCountry('');
+        setPrimarySport('');
+        setDOB('');
+        setState('');
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-        emailRegister();
+        emailRegister({
+            setLoading,
+            fullName,
+            password,
+            email,
+            phoneNumber,
+            primarySport,
+            dob,
+            country,
+            state,
+            city,
+            gender,
+            resetFields
+        });
     };
 
     return (
