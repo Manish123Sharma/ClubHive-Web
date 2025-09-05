@@ -88,7 +88,8 @@
 .signup-card input[type="email"],
 .signup-card input[type="password"],
 .signup-card input[type="number"],
-.signup-card input[type="date"]
+.signup-card input[type="date"],
+.signup-card select
 {
     width: 100%;
     padding: 0.5rem;
@@ -133,6 +134,7 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
+    margin: 10px;
 }
 
 .social-icon {
