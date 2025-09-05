@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import './styles/Login.css';
-import emailLogin from '../utils/emailLogin';
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/slices/authSlice";
+import { toast } from "react-toastify";
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.auth);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
 
     const handleEmail = (e) => {
         setEmail(e.target.value);
@@ -22,15 +27,25 @@ const Login = () => {
         setPassword('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        emailLogin({
+        if (!email || !password) {
+            toast.error('Please fill all the fields..');
+            return;
+        }
+        const credentials = {
             email,
             password,
-            setLoading,
-            resetFields
-        });
+        };
+        const result = await dispatch(login(credentials));
+
+        if (result.meta.requestStatus === "fulfilled") {
+            toast.success("Login Successful!");
+            resetFields();
+        } else {
+            toast.error(result.payload?.message || "Registration failed");
+        }
+
     };
 
     return (
@@ -56,17 +71,11 @@ const Login = () => {
                         <a href="#">Forgot password?</a>
                     </div>
 
-                    {loading
-                        ?
-                        <button disabled type="submit" className="signup-btn">
-                            Loading...
-                        </button>
-                        :
-                        <button type="submit" className="signup-btn">
-                            Login
-                        </button>
-                    }
+                    <button type="submit" className="signup-btn" disabled={loading}>
+                        {loading ? "Logging..." : "Login"}
+                    </button>
                 </form>
+                {error && <p style={{ color: "red" }}>{error}</p>}
                 <div className="divider">
                     <span>Or</span>
                 </div>
