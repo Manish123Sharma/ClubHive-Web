@@ -15,6 +15,7 @@ exports.registerUser = async (req, res) => {
             password,
             email,
             city,
+            country,
             state,
             gender,
             phoneNumber,
@@ -34,7 +35,8 @@ exports.registerUser = async (req, res) => {
             gender,
             phoneNumber,
             primarySport,
-            dateOfBirth
+            dateOfBirth,
+            country
         });
         res.status(201).json({
             _id: user.id,
@@ -109,6 +111,7 @@ exports.registerAdmin = async (req, res) => {
             phoneNumber,
             primarySport,
             dateOfBirth,
+            country
         } = req.body;
         const adminExists = await Admin.findOne({ email });
         if (adminExists) {
@@ -123,7 +126,8 @@ exports.registerAdmin = async (req, res) => {
             gender,
             phoneNumber,
             primarySport,
-            dateOfBirth
+            dateOfBirth,
+            country
         });
         res.status(201).json({
             _id: admin.id,
