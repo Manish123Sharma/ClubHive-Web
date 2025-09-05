@@ -41,6 +41,10 @@ const AdminSchema = new Schema({
         type: SchemaTypes.String,
         required: true,
     },
+    country: {
+        type: SchemaTypes.String,
+        required: true,
+    },
     gender: {
         type: SchemaTypes.String,
         enum: ['male', 'female', 'other'],

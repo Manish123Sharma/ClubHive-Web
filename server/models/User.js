@@ -43,6 +43,10 @@ const UserSchema = new Schema({
         type: SchemaTypes.String,
         required: true,
     },
+    country: {
+        type: SchemaTypes.String,
+        required: true,
+    },
     state: {
         type: SchemaTypes.String,
         required: true,
