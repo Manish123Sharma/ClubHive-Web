@@ -191,6 +191,7 @@ const Register = () => {
                 <div className="shape shape-2"></div>
 
                 <div className="signup-card">
+                    <h1>Register Admin</h1>
                     <form onSubmit={handleSubmit}>
                         {/* <div className="form-row"> */}
                         <input type="text" placeholder='Full Name' value={fullName} onChange={handleName} />
