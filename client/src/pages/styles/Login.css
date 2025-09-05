@@ -1,0 +1,160 @@
+/* Layout */
+.login-container {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.login-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.login-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    max-width: 500px;
+}
+
+/* Heading */
+.heading {
+    margin-bottom: 2rem;
+}
+
+/* Inputs */
+.input-field {
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* Remember Me + Forgot */
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.remember-forgot label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+/* Blue themed checkbox */
+.remember-forgot input[type="checkbox"] {
+    accent-color: #1266f1;
+    /* This changes the checkbox color in modern browsers */
+    width: 16px;
+    height: 16px;
+}
+
+/* Button */
+.btn-primary {
+    background-color: #1266f1;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0f57cc;
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #eee;
+}
+
+.divider span {
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+/* Social login */
+.social-login {
+    text-align: center;
+}
+
+.social-icons-login {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 0.5rem;
+}
+
+.social-icons-login a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: #1266f1;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.social-icons-login a:hover {
+    background: #1266f1;
+    color: white;
+}
+
+/* Signup text */
+.signup-text-login {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.link-danger-login {
+    color: red;
+    text-decoration: none;
+}
+
+.link-danger-login:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login-form {
+        max-width: 100%;
+        padding: 1rem;
+    }
+}
