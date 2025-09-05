@@ -2,7 +2,7 @@
 .login-container {
     display: flex;
     flex-wrap: wrap;
-    min-height: 100vh;
+    /* max-height: 100vh; */
     padding: 2rem;
 }
 
@@ -30,6 +30,14 @@
 /* Heading */
 .heading {
     margin-bottom: 2rem;
+    text-align: center;
+}
+
+.login-form form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
 }
 
 /* Inputs */
@@ -48,6 +56,10 @@
     align-items: center;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
+}
+
+.remember-forgot a{
+    text-decoration: none;
 }
 
 .remember-forgot label {
@@ -109,7 +121,7 @@
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin-top: 0.5rem;
+    margin-top: 10px;
 }
 
 .social-icons-login a {
