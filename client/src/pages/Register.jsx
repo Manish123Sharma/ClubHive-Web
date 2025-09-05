@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/Register.css';
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/slices/authSlice";
 import { toast } from "react-toastify";
+import { fetchCountries, fetchStates, fetchCities } from "../utils/dropdownApis";
 
 const Register = () => {
 
@@ -21,6 +22,52 @@ const Register = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [primarySport, setPrimarySport] = useState('');
     const [dob, setDOB] = useState('');
+
+    const [countries, setCountries] = useState([]);
+    const [states, setStates] = useState([]);
+    const [cities, setCities] = useState([]);
+    const [countryId, setCountryId] = useState('');
+    const [stateId, setStateId] = useState('');
+    // const [cityId, setCityId] = useState('');
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const countryData = await fetchCountries();
+                setCountries(countryData);
+            } catch (err) {
+                toast.error("Failed to load dropdown data");
+                console.log(err);
+
+            }
+        };
+        loadData();
+    }, []);
+
+    useEffect(() => {
+        if (countryId) {
+            console.log('Country', countryId);
+            const loadStates = async () => {
+                const stateData = await fetchStates(countryId);
+                setStates(stateData);
+                setCities([]); // reset cities
+                setState('');
+                setCity('');
+            };
+            loadStates();
+        }
+    }, [countryId]);
+
+    useEffect(() => {
+        if (stateId) {
+            const loadCities = async () => {
+                const cityData = await fetchCities(stateId);
+                setCities(cityData);
+                setCity('');
+            };
+            loadCities();
+        }
+    }, [stateId]);
 
     const handleName = (e) => {
         setfullName(e.target.value);
@@ -50,13 +97,32 @@ const Register = () => {
     };
 
     const handleCountry = (e) => {
-        setCountry(e.target.value);
-        console.log(e.target.value);
+        const selectedValue = e.target.value;
+        // console.log('Sected Value', e.target.value);
+          // this is country id
+        setCountry(selectedValue);
+        // console.log('Country Selcted', selectedValue);
+        
+
+        // Find the country object to extract its id
+        const selectedCountry = countries.find(c => c.name.toString() === selectedValue);
+        if (selectedCountry) {
+            // setCountry(selectedCountry.name);
+            setCountryId(selectedCountry.country_id);
+        }
+        // console.log("Selected countryId:", selectedValue);
     };
 
     const handleState = (e) => {
-        setState(e.target.value);
-        console.log(e.target.value);
+        const selectedValue = e.target.value; // state id
+        setState(selectedValue);
+
+        const selectedState = states.find(s => s.name.toString() === selectedValue);
+        if (selectedState) {
+            // setState(selectedState.name);
+            setStateId(selectedState.state_id);
+        }
+        // console.log("Selected stateId:", selectedValue);
     };
 
     const handleCity = (e) => {
@@ -138,23 +204,23 @@ const Register = () => {
                         <div className="form-row">
                             <select value={country} onChange={handleCountry}>
                                 <option value="">Select Country</option>
-                                <option value="india">India</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
+                                {countries.map((c) => (
+                                    <option key={c.name} value={c.name}>{c.name}</option>
+                                ))}
                             </select>
                             <select value={state} onChange={handleState}>
                                 <option value="">Select State</option>
-                                <option value="hr">Haryana</option>
-                                <option value="delhi">Delhi</option>
-                                <option value="up">Uttar Pardesh</option>
+                                {states.map((s) => (
+                                    <option key={s.name} value={s.name}>{s.name}</option>
+                                ))}
                             </select>
                         </div>
                         <div className="form-row">
                             <select value={city} onChange={handleCity}>
                                 <option value="">Select City</option>
-                                <option value="rewari">Rewari</option>
-                                <option value="gurgaon">Gurgaon</option>
-                                <option value="noida">Noida</option>
+                                {cities.map((c) => (
+                                    <option key={c.city_id} value={c.name}>{c.name}</option>
+                                ))}
                             </select>
                             <select value={gender} onChange={handleGender}>
                                 <option value="">Select Gender</option>
