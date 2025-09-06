@@ -38,8 +38,8 @@ const Home = () => {
     };
     const onclick = () => {
         console.log('Hello');
-
     }
+
     return (
         <>
             <Header />
@@ -66,7 +66,10 @@ const Home = () => {
                     </button>
                 )}
             </div>
-            <PopularEvent />
+            <PopularEvent backgroundColor={'#f7f7f7'} location={'India'} />
+            <PopularEvent backgroundColor={''} location={'Hyderabad'} />
+            <PopularEvent backgroundColor={'#f7f7f7'} location={'Chennai'} />
+            <PopularEvent backgroundColor={''} location={'Delhi'} />
         </>
     );
 }
