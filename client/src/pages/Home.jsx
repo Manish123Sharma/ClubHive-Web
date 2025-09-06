@@ -3,6 +3,8 @@ import Header from '../components/Header/Header';
 import SliderCard from '../components/Sliders/Slider Cards/SliderCard';
 import './styles/Home.css';
 import PopularEvent from '../components/Popular Events/PopularEvent';
+import Banner from '../components/Banner/Banner';
+import Footer from '../components/Footer/Footer';
 
 const Home = () => {
     const sliderRef = useRef(null);
@@ -67,9 +69,13 @@ const Home = () => {
                 )}
             </div>
             <PopularEvent backgroundColor={'#f7f7f7'} location={'India'} />
+            {/* <Banner /> */}
             <PopularEvent backgroundColor={''} location={'Hyderabad'} />
+            <Banner />
             <PopularEvent backgroundColor={'#f7f7f7'} location={'Chennai'} />
+            {/* <Banner /> */}
             <PopularEvent backgroundColor={''} location={'Delhi'} />
+            <Footer />
         </>
     );
 }
