@@ -42,11 +42,12 @@ exports.registerUser = async (req, res) => {
             _id: user.id,
             fullName: user.fullName,
             email: user.email,
-            city: user.city,
-            state: user.state,
-            phoneNumber: user.phoneNumber,
-            dateOfBirth: user.dateOfBirth,
-            gender: user.gender
+            // city: user.city,
+            // state: user.state,
+            // phoneNumber: user.phoneNumber,
+            // dateOfBirth: user.dateOfBirth,
+            // gender: user.gender,
+            token: generateToken(user.id)
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -133,11 +134,12 @@ exports.registerAdmin = async (req, res) => {
             _id: admin.id,
             fullName: admin.fullName,
             email: admin.email,
-            city: admin.city,
-            state: admin.state,
-            phoneNumber: admin.phoneNumber,
-            dateOfBirth: admin.dateOfBirth,
-            gender: admin.gender
+            // city: admin.city,
+            // state: admin.state,
+            // phoneNumber: admin.phoneNumber,
+            // dateOfBirth: admin.dateOfBirth,
+            // gender: admin.gender,
+            token: generateToken(admin.id)
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
