@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaSearch } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import './Header.css';
@@ -7,8 +7,11 @@ import { FaChevronDown } from "react-icons/fa";
 import { MdEvent, MdPayment, MdAssessment, MdCampaign } from "react-icons/md";
 import { FaBook, FaHeart, FaSignOutAlt } from "react-icons/fa";
 import { logout } from "../../redux/slices/authSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getUserbyId } from '../../redux/slices/authSlice.js';
+import Loader from '../Loader/Loader.jsx';
+import profile from '../../assets/profile.png'
 
 
 const Header = () => {
@@ -17,11 +20,25 @@ const Header = () => {
     const [searchCity, setSearchCity] = useState("");
     const [selectedCity, setSelectedCity] = useState("India");
     const [profileOpen, setProfileOpen] = useState(false);
-    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-    const toggleProfile = () => setProfileOpen(!profileOpen);
+
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const { user, loading } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        const savedUser = JSON.parse(localStorage.getItem("user"));
+        if (savedUser?._id) {
+            dispatch(getUserbyId(savedUser._id));
+        }
+    }, [dispatch]);
+
+    if (loading) return <Loader />;
+
+
+    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+    const toggleProfile = () => setProfileOpen(!profileOpen);
 
 
 
@@ -40,6 +57,10 @@ const Header = () => {
     const filteredCities = cities.filter(city =>
         city.toLowerCase().includes(searchCity.toLowerCase())
     );
+
+    const handleViewEdit = () => {
+        console.log('Editing');
+    }
 
     return (
         <div className='navbar'>
@@ -93,31 +114,21 @@ const Header = () => {
             {/* Right Section */}
             <div className="header-right">
                 <div className="profile" onClick={toggleProfile}>
-                    <img
-                        src="https://i.pravatar.cc/40"
-                        alt="profile"
-                    />
+                    <img src={user?.profilePic || profile} alt="profile" />
                 </div>
 
                 {/* Profile Dropdown */}
                 {profileOpen && (
                     <div className="profile-dropdown">
                         <div className="profile-header">
-                            <img src="https://i.pravatar.cc/50" alt="profile" />
+                            <img src={user?.profilePic || profile} alt="profile" />
                             <div>
-                                <h4>Manish Sharma</h4>
-                                <span>View and edit profile</span>
+                                <h4>{user?.fullName || "Guest User"}</h4>
+                                {/* <span>{user?.email}</span> */}
+                                <span className="edit-profile" onClick={handleViewEdit}>View and edit profile</span>
                             </div>
                         </div>
-                        <div className="profile-section">
-                            <p>Organizing Events</p>
-                            <ul>
-                                <li><MdEvent /> Manage Events</li>
-                                <li><MdPayment /> Billing</li>
-                                <li><MdAssessment /> Reports</li>
-                                <li><MdCampaign /> Promotions</li>
-                            </ul>
-                        </div>
+
                         <div className="profile-section">
                             <p>Attending Events</p>
                             <ul>
@@ -125,6 +136,7 @@ const Header = () => {
                                 <li><FaHeart /> Following</li>
                             </ul>
                         </div>
+
                         <div className="profile-section logout">
                             <ul>
                                 <li onClick={handleLogout}><FaSignOutAlt /> Logout</li>
