@@ -1,0 +1,65 @@
+/* Container for horizontal scrolling */
+.slider-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    /* padding: 20px; */
+    gap: 16px;
+    /* cleaner than margin-right */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    flex: 1;
+}
+
+/* Hide ugly scrollbar */
+.slider-container::-webkit-scrollbar {
+    display: none;
+}
+
+.slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px 40px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 20;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease;
+}
+
+.arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.arrow.left {
+    left: 10px;
+}
+
+.arrow.right {
+    right: 10px;
+}
+
+body,
+html {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
