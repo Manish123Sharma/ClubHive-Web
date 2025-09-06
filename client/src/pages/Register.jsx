@@ -47,7 +47,7 @@ const Register = () => {
 
     useEffect(() => {
         if (countryId) {
-            console.log('Country', countryId);
+            // console.log('Country', countryId);
             const loadStates = async () => {
                 const stateData = await fetchStates(countryId);
                 setStates(stateData);
@@ -72,7 +72,7 @@ const Register = () => {
 
     const handleName = (e) => {
         setfullName(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
     };
 
     const handleEmail = (e) => {
@@ -85,7 +85,7 @@ const Register = () => {
 
     const handlePhone = (e) => {
         setPhoneNumber(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
     };
 
     const handlePrimary = (e) => {
@@ -94,7 +94,7 @@ const Register = () => {
 
     const handleDOB = (e) => {
         setDOB(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
     };
 
     const handleCountry = (e) => {
@@ -128,12 +128,12 @@ const Register = () => {
 
     const handleCity = (e) => {
         setCity(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
     };
 
     const handleGender = (e) => {
         setGender(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
     };
 
     const resetFields = () => {
@@ -170,7 +170,11 @@ const Register = () => {
 
         if (result.meta.requestStatus === "fulfilled") {
             localStorage.setItem("token", result.payload.token);
-            localStorage.setItem("user", JSON.stringify(result.payload._id));
+            localStorage.setItem("user", JSON.stringify({
+                _id: result.payload._id,
+                fullName: result.payload.fullName,
+                email: result.payload.email
+            }));
             toast.success("Registration Successful!");
             resetFields();
             navigate("/home");
