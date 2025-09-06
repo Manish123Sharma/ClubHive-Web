@@ -25,7 +25,11 @@ export const register = createAsyncThunk(
         try {
             const res = await API.post(`${API_URL}/register`, userData);
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user", res.data._id);
+            localStorage.setItem("user", JSON.stringify({
+                _id: res.data._id,
+                fullName: res.data.fullName,
+                email: res.data.email
+            }));
             return res.data;
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response?.data || err.message);
@@ -41,7 +45,11 @@ export const login = createAsyncThunk(
             const res = await API.post(`${API_URL}/login`, credentials);
 
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user", JSON.stringify(res.data._id));
+            localStorage.setItem("user", JSON.stringify({
+                _id: res.data._id,
+                fullName: res.data.fullName,
+                email: res.data.email
+            }));
 
             return res.data;
         } catch (err) {
@@ -61,7 +69,7 @@ if (token && isTokenExpired(token)) {
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-        user: !isTokenExpired(token) ? user : null,
+        user: user ? JSON.parse(user) : null,
         token: !isTokenExpired(token) ? token : null,
         loading: false,
         error: null,
@@ -83,7 +91,11 @@ const authSlice = createSlice({
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload._id;
+                state.user = {
+                    _id: action.payload._id,
+                    fullName: action.payload.fullName,
+                    email: action.payload.email
+                };
                 state.token = action.payload.token;
             })
             .addCase(login.rejected, (state, action) => {
@@ -97,7 +109,11 @@ const authSlice = createSlice({
             })
             .addCase(register.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload._id;
+                state.user = {
+                    _id: action.payload._id,
+                    fullName: action.payload.fullName,
+                    email: action.payload.email
+                };
                 state.token = action.payload.token;
             })
             .addCase(register.rejected, (state, action) => {
