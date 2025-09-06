@@ -4,7 +4,7 @@ import { FaHeart, FaShareAlt } from "react-icons/fa";
 
 const EventCard = () => {
     return (
-        <div className="event-card">
+        <div className="event-card" onClick={() => {console.log('Indian Events');}}>
             {/* Top image with icons */}
             <div className="event-image-container">
                 <img
