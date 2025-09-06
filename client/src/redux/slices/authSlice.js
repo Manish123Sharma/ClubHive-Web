@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../utils/axiosInstance";
 import { jwtDecode } from "jwt-decode";
+// import axios from "axios";
 
 
 const API_URL = "/auth";
@@ -24,6 +25,7 @@ export const register = createAsyncThunk(
     async (userData, thunkAPI) => {
         try {
             const res = await API.post(`${API_URL}/register`, userData);
+            console.log("REGISTER RESPONSE:", res.data);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user", JSON.stringify({
                 _id: res.data._id,
@@ -54,6 +56,25 @@ export const login = createAsyncThunk(
             return res.data;
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response?.data || err.message);
+        }
+    }
+);
+
+export const getUserbyId = createAsyncThunk(
+    'auth/getUserbyId',
+    async (id, { rejectWithValue }) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await API.get(`${API_URL}/getUserbyId?query=${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            return res.data;
+        } catch (err) {
+            return rejectWithValue(err.response?.data || "Failed to fetch user");
         }
     }
 );
