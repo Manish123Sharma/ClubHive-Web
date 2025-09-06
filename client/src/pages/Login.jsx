@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/Login.css';
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/authSlice";
@@ -10,7 +10,7 @@ const Login = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { loading, error } = useSelector((state) => state.auth);
+    const { loading, error, token } = useSelector((state) => state.auth);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -42,7 +42,11 @@ const Login = () => {
 
         if (result.meta.requestStatus === "fulfilled") {
             localStorage.setItem("token", result.payload.token);
-            localStorage.setItem("user", JSON.stringify(result.payload._id));
+            localStorage.setItem("user", JSON.stringify({
+                _id: result.payload._id,
+                fullName: result.payload.fullName,
+                email: result.payload.email
+            }));
             toast.success("Login Successful!");
             resetFields();
             navigate("/home");
@@ -51,6 +55,12 @@ const Login = () => {
         }
 
     };
+
+    useEffect(() => {
+        if (token) {
+            navigate("/home"); // ✅ redirect if already logged in
+        }
+    }, [token, navigate]);
 
     return (
         <div className="login-container">
