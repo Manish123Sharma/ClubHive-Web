@@ -6,6 +6,10 @@ import logo from '../../assets/logo.png';
 import { FaChevronDown } from "react-icons/fa";
 import { MdEvent, MdPayment, MdAssessment, MdCampaign } from "react-icons/md";
 import { FaBook, FaHeart, FaSignOutAlt } from "react-icons/fa";
+import { logout } from "../../redux/slices/authSlice.js";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 
 const Header = () => {
     const cities = ["Online", "Bengaluru", "Chennai", "Delhi", "Hyderabad", "Mumbai", "Pune"];
@@ -15,6 +19,16 @@ const Header = () => {
     const [profileOpen, setProfileOpen] = useState(false);
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
     const toggleProfile = () => setProfileOpen(!profileOpen);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate("/login");
+    };
 
 
     const handleCitySelect = (city) => {
@@ -113,7 +127,7 @@ const Header = () => {
                         </div>
                         <div className="profile-section logout">
                             <ul>
-                                <li><FaSignOutAlt /> Logout</li>
+                                <li onClick={handleLogout}><FaSignOutAlt /> Logout</li>
                             </ul>
                         </div>
                     </div>

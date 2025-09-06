@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './styles/Register.css';
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/slices/authSlice";
 import { toast } from "react-toastify";
@@ -10,6 +10,7 @@ import { fetchCountries, fetchStates, fetchCities } from "../utils/dropdownApis"
 const Register = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.auth);
 
     const [fullName, setfullName] = useState('');
@@ -99,10 +100,10 @@ const Register = () => {
     const handleCountry = (e) => {
         const selectedValue = e.target.value;
         // console.log('Sected Value', e.target.value);
-          // this is country id
+        // this is country id
         setCountry(selectedValue);
         // console.log('Country Selcted', selectedValue);
-        
+
 
         // Find the country object to extract its id
         const selectedCountry = countries.find(c => c.name.toString() === selectedValue);
@@ -168,8 +169,11 @@ const Register = () => {
         const result = await dispatch(register(userData));
 
         if (result.meta.requestStatus === "fulfilled") {
+            localStorage.setItem("token", result.payload.token);
+            localStorage.setItem("user", JSON.stringify(result.payload._id));
             toast.success("Registration Successful!");
             resetFields();
+            navigate("/home");
         } else {
             toast.error(result.payload?.message || "Registration failed");
         }

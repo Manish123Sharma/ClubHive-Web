@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/authSlice";
 import { toast } from "react-toastify";
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.auth);
 
     const [email, setEmail] = useState("");
@@ -40,8 +41,11 @@ const Login = () => {
         const result = await dispatch(login(credentials));
 
         if (result.meta.requestStatus === "fulfilled") {
+            localStorage.setItem("token", result.payload.token);
+            localStorage.setItem("user", JSON.stringify(result.payload._id));
             toast.success("Login Successful!");
             resetFields();
+            navigate("/home");
         } else {
             toast.error(result.payload?.message || "Registration failed");
         }
