@@ -6,9 +6,12 @@ import Register from './pages/Register';
 import './App.css'
 import Login from './pages/Login';
 import Home from './pages/Home';
+import ProtectedRoute from "./components/ProtectedRoute";
+// import { useSelector } from "react-redux";
 
 
 const App = () => {
+    // const { token } = useSelector((state) => state.auth);
     return (
         <>
             <ToastContainer />
@@ -16,7 +19,14 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Login />} />
                     <Route path='/register' element={<Register />} />
-                    <Route path='/home' element={<Home />} />
+                    <Route
+                        path="/home"
+                        element={
+                            <ProtectedRoute>
+                                <Home />
+                            </ProtectedRoute>
+                        }
+                    />
                 </Routes>
             </Router>
         </>
