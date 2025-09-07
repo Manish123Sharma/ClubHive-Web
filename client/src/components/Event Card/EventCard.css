@@ -1,5 +1,5 @@
 .event-card {
-    width: 320px;
+    width: 400px;
     height: 100%;
     border-radius: 12px;
     overflow: hidden;
@@ -61,24 +61,34 @@
 
 /* Text Section */
 .event-details {
-    padding: 14px 16px;
+    padding: 10px 16px;
+    justify-content: space-between;
 }
 
 .event-title {
-    font-size: 16px;
+    font-size: 25px;
     font-weight: 600;
     color: #111;
     margin: 0 0 8px;
 }
 
+.event_lower{
+    height: 100px;
+    /* margin-top: 30px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 15px;
+}
+
 .event-subtitle {
-    font-size: 14px;
+    font-size: 20px;
     color: #666;
     margin: 0 0 10px;
 }
 
 .event-price {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     color: #2563eb;
     /* Blue like in image */
