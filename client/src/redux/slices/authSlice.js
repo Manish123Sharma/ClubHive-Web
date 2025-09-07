@@ -79,12 +79,14 @@ export const getUserbyId = createAsyncThunk(
     }
 );
 
-const token = localStorage.getItem("token");
-const user = localStorage.getItem("user");
+let token = localStorage.getItem("token");
+let user = localStorage.getItem("user");
 
 if (token && isTokenExpired(token)) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    token = null;
+    user = null;
 }
 
 const authSlice = createSlice({
@@ -140,6 +142,15 @@ const authSlice = createSlice({
             .addCase(register.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload?.message || "Register Failed";
+            }).addCase(getUserbyId.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            }).addCase(getUserbyId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            }).addCase(getUserbyId.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.message || 'User Fetching Failed'
             });
     },
 });
