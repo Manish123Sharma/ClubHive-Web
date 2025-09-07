@@ -120,9 +120,9 @@ const Home = () => {
         }
     };
 
-    const onclick = () => {
-        console.log('Hello');
-    }
+    // const onclick = () => {
+    //     console.log('Hello');
+    // }
 
     return (
         <>
@@ -142,7 +142,7 @@ const Home = () => {
                                 city={city.name}
                                 events={events.length} // dynamic count
                                 image={city.pic}
-                                onClick={onclick}
+                                // onClick={onclick}
                             />
                         );
                     })}
