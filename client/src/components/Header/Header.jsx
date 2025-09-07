@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FaSearch } from "react-icons/fa";
-import { MdLocationOn } from "react-icons/md";
+import { FaSearch, FaChevronDown, FaBook, FaHeart, FaSignOutAlt } from "react-icons/fa";
+import { MdLocationOn} from "react-icons/md";
 import './Header.css';
 import logo from '../../assets/logo.png';
-import { FaChevronDown } from "react-icons/fa";
-import { MdEvent, MdPayment, MdAssessment, MdCampaign } from "react-icons/md";
-import { FaBook, FaHeart, FaSignOutAlt } from "react-icons/fa";
-import { logout } from "../../redux/slices/authSlice.js";
+import { logout, getUserbyId } from "../../redux/slices/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getUserbyId } from '../../redux/slices/authSlice.js';
 import Loader from '../Loader/Loader.jsx';
 import profile from '../../assets/profile.png'
 
