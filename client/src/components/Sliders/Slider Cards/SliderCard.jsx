@@ -1,10 +1,27 @@
 import React from 'react';
 import { FaArrowRight } from "react-icons/fa";
 import './SliderCard.css';
+import { useNavigate } from 'react-router-dom';
 
-const SliderCard = ({ city, events, image, onClick }) => {
+const SliderCard = ({
+    city,
+    events,
+    image,
+    // onClick 
+}) => {
+
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        if (city) {
+            navigate(`/allevents?city=${city}`);
+        }
+    };
     return (
-        <div className="city-card" onClick={onClick}>
+        <div
+            className="city-card"
+        onClick={handleNavigate}
+        >
             <div
                 className="city-card-image"
                 style={{ backgroundImage: `url(${image})` }}
@@ -18,5 +35,13 @@ const SliderCard = ({ city, events, image, onClick }) => {
         </div>
     );
 }
+
+import PropTypes from 'prop-types';
+
+SliderCard.propTypes = {
+    city: PropTypes.string.isRequired,
+    events: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    image: PropTypes.string.isRequired,
+};
 
 export default SliderCard;
