@@ -60,6 +60,10 @@ const EventSchema = new Schema({
         match: /^\d{2}:[0-5]\d:[0-5]\d$/,
         default: '00:00:00'
     },
+    price: {
+        type: SchemaTypes.String,
+        required: true
+    },
     photos: [
         {
             type: SchemaTypes.String,
