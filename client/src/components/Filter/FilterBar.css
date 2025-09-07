@@ -1,4 +1,125 @@
 .filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 100px;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.filter-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.filter-label {
+    font-size: 20px;
+    color: #6b7280;
+    /* gray-500 */
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #111827;
+    /* gray-900 */
+    cursor: pointer;
     position: relative;
-    z-index: 0;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.filter-option:hover {
+    background: #f3f4f6;
+    /* hover highlight */
+}
+
+.filter-icon {
+    color: #5a36cc;
+    /* purple */
+    font-size: 16px;
+}
+
+.dropdown-arrow {
+    font-size: 25px;
+    margin-left: 4px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+/* Dropdown container */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 6px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    min-width: 150px;
+    overflow: hidden;
+    animation: slideDown 0.25s ease forwards;
+}
+
+/* Dropdown item */
+.dropdown-item {
+    padding: 10px 14px;
+    font-size: 18px;
+    color: #111827;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: #f3f4f6;
+}
+
+/* Slide down animation */
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.filter-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.view-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #5a36cc;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.view-toggle:hover {
+    background: #f3f0fe;
 }
