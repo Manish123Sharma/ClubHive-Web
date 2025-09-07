@@ -12,9 +12,9 @@ const EventCard = ({
 }) => {
 
     const formattedDate = new Date(date).toLocaleDateString("en-US", {
-        month: "short",   
-        day: "2-digit",   
-        year: "numeric"   
+        month: "short",
+        day: "2-digit",
+        year: "numeric"
     });
 
 
@@ -42,8 +42,11 @@ const EventCard = ({
                 <h3 className="event-title">
                     {name}
                 </h3>
-                <p className="event-subtitle">{formattedDate} | {city}</p>
-                <p className="event-price">{price}</p>
+                <div className="event_lower">
+                    <p className="event-subtitle">{formattedDate} | {city}</p>
+                    <p className="event-price">{price}</p>
+                </div>
+
             </div>
         </div>
     );
