@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { getEventbyCountry, getEventbyCity } from '../../redux/slices/eventSlics';
 import PropTypes from 'prop-types';
 import Loader from '../Loader/Loader';
+import { useNavigate } from 'react-router-dom';
+import ViewAllEvents from '../../pages/ViewAllEvents';
 
 
 const PopularEvent = ({
@@ -15,6 +17,7 @@ const PopularEvent = ({
 }) => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [localEvents, setLocalEvents] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -90,6 +93,16 @@ const PopularEvent = ({
 
     const titleLocation = country || city;
 
+    const handleNavigate = () => {
+        if (country) {
+            navigate(`/allevents?country=${country}`);
+        } else if (city) {
+            navigate(`/allevents?city=${city}`);
+        } else {
+            navigate(`/allevents`);
+        }
+    };
+
     return (
         <div className="popular_events_wrapper" style={{ backgroundColor }}>
             <div className="popular_event">
@@ -104,7 +117,7 @@ const PopularEvent = ({
                         <p>
                             View All
                         </p>
-                        <FaArrowRight className="arrow_icon" />
+                        <FaArrowRight onClick={handleNavigate} className="arrow_icon" />
                     </div>
                 </div>
                 {loading
