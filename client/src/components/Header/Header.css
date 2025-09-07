@@ -4,8 +4,8 @@
     left: 0;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    /* padding: 0px 10px; */
+    justify-content: space-between;
+    padding: 8px 10px;
     background: #fff;
     border-bottom: 1px solid #ddd;
     z-index: 1000;
