@@ -27,7 +27,8 @@ exports.createEvent = [
                 registrationEndTime,
                 city,
                 state,
-                country
+                country,
+                price
             } = req.body;
 
             let photoUrls = [];
@@ -58,7 +59,8 @@ exports.createEvent = [
                 registrationStart,
                 registrationEnd,
                 registrationEndTime,
-                photos: photoUrls
+                photos: photoUrls,
+                price
             });
 
             await event.save();
