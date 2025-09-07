@@ -1,3 +1,43 @@
-.view-events-page{
+.view-events-page {
+    background-color: #f3f0fe;
     min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+.page_content {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Header section */
+.page_header {
+    margin-bottom: 24px;
+}
+
+.page_header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 6px;
+}
+
+.page_header p {
+    font-size: 15px;
+    color: #4b4444;
+    margin: 0;
+}
+
+.page_header span {
+    color: #5a36cc;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Events Grid */
+.events_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    row-gap: 30px;
+    column-gap: 60px;
 }
