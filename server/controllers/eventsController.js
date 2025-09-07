@@ -246,3 +246,21 @@ exports.getEventbyState = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+exports.getEventbyId = async (req, res) => {
+    try {
+        const query = req.query.query;
+        if (!query) {
+            return res.status(400).json({ message: "Query is required" });
+        }
+        const event = await Event.findById(query);
+
+        if (!event) {
+            return res.status(404).json({ message: "Event not found" });
+        }
+
+        res.json(event);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
