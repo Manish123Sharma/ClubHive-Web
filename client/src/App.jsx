@@ -3,10 +3,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Register from './pages/Register';
-import './App.css'
+// import './App.css'
 import Login from './pages/Login';
 import Home from './pages/Home';
 import ProtectedRoute from "./components/ProtectedRoute";
+import ViewAllEvents from './pages/ViewAllEvents';
 // import { useSelector } from "react-redux";
 
 
@@ -27,6 +28,7 @@ const App = () => {
                             </ProtectedRoute>
                         }
                     />
+                    <Route path='/allevents' element={<ViewAllEvents />} />
                 </Routes>
             </Router>
         </>
