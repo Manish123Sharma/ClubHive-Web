@@ -18,4 +18,6 @@ router.get('/getEventbyCountry', eventsController.getEventbyCountry);
 
 router.get('/getEventbyState', eventsController.getEventbyState);
 
+router.get('/getEventbyId', eventsController.getEventbyId);
+
 module.exports = router;
