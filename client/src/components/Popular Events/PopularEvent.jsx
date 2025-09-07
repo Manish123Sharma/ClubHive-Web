@@ -7,6 +7,7 @@ import { getEventbyCountry, getEventbyCity } from '../../redux/slices/eventSlics
 import PropTypes from 'prop-types';
 import Loader from '../Loader/Loader';
 
+
 const PopularEvent = ({
     backgroundColor,
     country,
@@ -34,6 +35,7 @@ const PopularEvent = ({
 
                 if (action.meta.requestStatus === "fulfilled") {
                     setLocalEvents(action.payload);
+                    // setTimeout(checkForScrollPosition, 100);
                 } else {
                     setLocalEvents([]);
                 }
@@ -69,11 +71,21 @@ const PopularEvent = ({
 
 
     const scroll = (direction) => {
+        // if (direction === 'left') {
+        //     sliderRef.current.scrollBy({ left: -250, behavior: 'smooth' });
+        // } else {
+        //     sliderRef.current.scrollBy({ left: 250, behavior: 'smooth' });
+        // }
+
+        if (!sliderRef.current) return;
+
+        const scrollAmount = 250;
         if (direction === 'left') {
-            sliderRef.current.scrollBy({ left: -250, behavior: 'smooth' });
+            sliderRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         } else {
-            sliderRef.current.scrollBy({ left: 250, behavior: 'smooth' });
+            sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
+        setTimeout(checkForScrollPosition, 100);
     };
 
     const titleLocation = country || city;
