@@ -182,7 +182,9 @@ exports.getEventbyName = async (req, res) => {
             $or: [
                 { name: { $regex: query, $options: "i" } },
                 { category: { $regex: query, $options: "i" } },
-                { description: { $regex: query, $options: "i" } }
+                { description: { $regex: query, $options: "i" } },
+                { city: { $regex: query, $options: "i" } },
+                { country: { $regex: query, $options: "i" } }
             ]
         });
 
