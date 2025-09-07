@@ -8,6 +8,7 @@ import { getEventbyCountry, getEventbyCity } from '../redux/slices/eventSlics';
 import Loader from '../components/Loader/Loader';
 import { useLocation } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
+import { getEventbyName } from '../redux/slices/eventSlics';
 
 const ViewAllEvents = () => {
 
@@ -19,6 +20,7 @@ const ViewAllEvents = () => {
     const queryParams = new URLSearchParams(location.search);
     const country = queryParams.get("country");
     const city = queryParams.get("city");
+    const name = queryParams.get("name");
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -29,9 +31,11 @@ const ViewAllEvents = () => {
                     action = await dispatch(getEventbyCountry(country));
                 } else if (city) {
                     action = await dispatch(getEventbyCity(city));
+                } else if (name) {
+                    action = await dispatch(getEventbyName(name));
                 }
 
-                if (action.meta.requestStatus === "fulfilled") {
+                if (action?.meta?.requestStatus === "fulfilled") {
                     setLocalEvents(action.payload);
                 } else {
                     setLocalEvents([]);
@@ -45,9 +49,9 @@ const ViewAllEvents = () => {
         };
 
         fetchEvents();
-    }, [dispatch, country, city]);
+    }, [dispatch, country, city, name]);
 
-    const titleLocation = country || city;
+    const titleLocation = country || city || name;
 
     return (
         <div className="view-events-page">
