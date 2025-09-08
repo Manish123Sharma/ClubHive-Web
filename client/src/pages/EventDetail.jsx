@@ -6,8 +6,9 @@ import { MdLocationOn, MdCalendarToday } from 'react-icons/md';
 import Footer from '../components/Footer/Footer';
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
 import { getEventbyId } from '../redux/slices/eventSlics';
+import { getAdminbyId } from '../redux/slices/authSlice';
 // import { FiTicket } from 'react-icons/fi';
 
 const EventDetail = () => {
@@ -15,6 +16,7 @@ const EventDetail = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { selectedEvent, loading, error } = useSelector((state) => state.events);
+    const { admin, loading: adminLoading } = useSelector((state) => state.auth);
 
     const mainContentRef = useRef(null);
     const [activeSection, setActiveSection] = useState("event-info");
@@ -25,6 +27,12 @@ const EventDetail = () => {
             dispatch(getEventbyId(id));
         }
     }, [id, dispatch]);
+
+    useEffect(() => {
+        if (selectedEvent?.organizer_id) {
+            dispatch(getAdminbyId(selectedEvent.organizer_id));
+        }
+    }, [selectedEvent, dispatch]);
 
 
     const scrollToSection = (sectionId) => {
@@ -86,7 +94,7 @@ const EventDetail = () => {
     if (Array.isArray(selectedEvent.description)) {
         descriptionArray = selectedEvent.description;
     } else if (selectedEvent.description) {
-        descriptionArray = selectedEvent.description.split("\n"); // split string into paragraphs
+        descriptionArray = selectedEvent.description.split("\n");
     }
 
     return (
@@ -208,7 +216,7 @@ const EventDetail = () => {
                     </section>
 
 
-                    <section id="event-organizer" className={styles['event-organizer']}>
+                    {/* <section id="event-organizer" className={styles['event-organizer']}>
                         <div className={styles['organizer-card']}>
                             <div className={styles['organizer-cover']}></div>
 
@@ -229,7 +237,62 @@ const EventDetail = () => {
                                     </div>
                                 </div>
                                 <div className={styles['organizer-actions']}>
-                                    <button className={styles['follow-btn']}>
+                                    <button onClick={() => {console.log(selectedEvent.organizer_id)}} className={styles['follow-btn']}>
+                                        Follow <FaRegHeart />
+                                    </button>
+                                    <button className={styles['chat-btn']}>
+                                        <BiSolidMessageRounded />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section> */}
+
+                    <section id="event-organizer" className={styles['event-organizer']}>
+                        <div className={styles['organizer-card']}>
+                            <div className={styles['organizer-cover']}></div>
+
+                            <div className={styles['organizer-content']}>
+                                <div
+                                    className={styles['organizer-avatar']}
+                                    style={{
+                                        backgroundImage: `url(${admin?.profile_pic || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"})`,
+                                        backgroundSize: "cover",
+                                    }}
+                                ></div>
+
+                                <div className={styles['organizer-meta']}>
+                                    <h3 className={styles['organizer-name']}>
+                                        {adminLoading ? "Loading..." : admin?.fullName || "Unknown Organizer"}
+                                    </h3>
+                                    <p className={styles['organizer-joined']}>
+                                        Joined on{" "}
+                                        {admin?.createdAt
+                                            ? new Date(admin.createdAt).toLocaleDateString("en-US", {
+                                                month: "short",
+                                                day: "numeric",
+                                                year: "numeric",
+                                            })
+                                            : "N/A"}
+                                    </p>
+                                </div>
+
+                                <div className={styles['organizer-stats']}>
+                                    <div>
+                                        <strong>{admin?.eventsOrganised || 0}</strong>
+                                        <span>Events Organised</span>
+                                    </div>
+                                    <div>
+                                        <strong>{admin?.followers || 0}</strong>
+                                        <span>Followers</span>
+                                    </div>
+                                </div>
+
+                                <div className={styles['organizer-actions']}>
+                                    <button
+                                        onClick={() => console.log(selectedEvent.organizer_id)}
+                                        className={styles['follow-btn']}
+                                    >
                                         Follow <FaRegHeart />
                                     </button>
                                     <button className={styles['chat-btn']}>
@@ -240,9 +303,13 @@ const EventDetail = () => {
                         </div>
                     </section>
 
+
+
+
+
                 </main>
 
-                <aside className={styles['event-sidebar-right']}>
+                {/* <aside className={styles['event-sidebar-right']}>
                     <div className={styles['price-box']}>
                         <h2>{selectedEvent.price}</h2>
                         <button className={styles['book-now']}>BOOK NOW</button>
@@ -257,6 +324,35 @@ const EventDetail = () => {
                     <div className={styles['host-box']}>
                         <p>Host Virtual Events with Townhall</p>
                         <button className={styles['learn-more']}>LEARN MORE</button>
+                    </div>
+                </aside> */}
+                <aside className={styles['event-sidebar-right']}>
+                    <div className={styles['price-box']}>
+                        {selectedEvent.price?.toLowerCase() === "free" ? (
+                                <h2>FREE</h2>
+                        ) : (
+                            <>
+                                <h2>₹{selectedEvent.price}/- onwards</h2>
+                                <p className={styles['tax-text']}>*Exclusive of Taxes</p>
+                            </>
+                        )}
+                        <button className={styles['book-now']}>BOOK NOW →</button>
+                    </div>
+
+                    <div className={styles['contact-box']}>
+                        <div className={styles['contact-box-header']}>
+                            <div
+                                className={styles['organizer-avatar-small']}
+                                style={{
+                                    backgroundImage: `url(${admin?.profile_pic || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"})`,
+                                }}
+                            ></div>
+                            <div className={styles['contact-box-text']}>
+                                <p className={styles['contact-question']}>Have a question?</p>
+                                <p className={styles['contact-subtext']}>Send your queries to the event organizer</p>
+                            </div>
+                        </div>
+                        <button className={styles['contact-organizer']}>CONTACT ORGANIZER</button>
                     </div>
                 </aside>
             </div>
