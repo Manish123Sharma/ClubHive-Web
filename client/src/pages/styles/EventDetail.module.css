@@ -1,0 +1,461 @@
+/* === Layout Grid === */
+.event-detail-container {
+    display: grid;
+    grid-template-columns: 220px 1fr 300px;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* === Left Sidebar === */
+.event-sidebar-left {
+    background: #f7f5ff;
+    padding: 20px;
+    border-right: 1px solid #eee;
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+}
+
+.event-sidebar-left ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.event-sidebar-left li {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    color: #7c7c7c;
+    cursor: pointer;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.event-sidebar-left li.active {
+    background-color: #f1eeff;
+    color: #6c48f1;
+    font-weight: bold;
+}
+
+/* === Right Sidebar === */
+.event-sidebar-right {
+    background: #f9f9ff;
+    padding: 20px;
+    border-left: 1px solid #eee;
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.price-box h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.book-now {
+    background-color: #6c48f1;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.contact-organizer,
+.learn-more {
+    background-color: transparent;
+    color: #6c48f1;
+    padding: 10px;
+    border: 1px solid #6c48f1;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* === Main Content === */
+.event-main-content {
+    overflow-y: auto;
+    padding: 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.event-main-content::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+/* === Image Banner === */
+.event-image-banner img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* === Title & Header === */
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    /* border: 1px solid black; */
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.event-header-left {
+    flex: 1;
+    /* border: 1px solid black; */
+}
+
+/* .event-header-left  */
+
+.event-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #1d1d1f;
+}
+
+.event-hashtag {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 4px 0 10px;
+}
+
+.event-details {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    font-size: 14px;
+    color: #4b5563;
+    align-items: center;
+    padding: 0;
+    margin-top: 0;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.detail-item .icon {
+    color: #6c48f1;
+    font-size: 16px;
+}
+
+.timezone {
+    color: #9ca3af;
+    margin-left: 4px;
+}
+
+/* === Header Right Buttons === */
+.event-header-right {
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    /* border: 1px solid black; */
+    padding: 0px 5px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #6c48f1;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.2s;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+}
+
+/* === Divider === */
+.header-divider,
+.event-divider {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 16px 0;
+}
+
+.event-venue {
+    border: 1px solid #e3e8ef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    color: #1d1d1f;
+}
+
+.venue-heading {
+    font-weight: 600;
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.venue-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.venue-text {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #1d1d1f;
+}
+
+.venue-text strong {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.venue-text span {
+    font-weight: 400;
+    color: #6b7280;
+}
+
+.venue-map-btn {
+    background-color: #E8DFFF;
+    color: #5C33FF;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.venue-map-btn:hover {
+    background-color: #d3b8ff;
+}
+
+.venue-map-icon {
+    stroke: #5C33FF;
+}
+
+
+/* === Gallery Section === */
+/* === Gallery Section === */
+
+.event-gallery{
+    border: 1px solid #e3e8ef;
+    border-radius: 8px;
+    margin: 16px 0;
+    padding: 20px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+
+/* === Event Info Section === */
+.event-description {
+    margin-top: 20px;
+}
+
+.info-card {
+    background-color: #fff;
+    border: 1px solid #e3e8ef;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+    font-size: 15px;
+    color: #1d1d1f;
+    line-height: 1.6;
+}
+
+.info-heading {
+    font-size: 14px;
+    font-weight: bold;
+    color: #3a3a3a;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.muted-text {
+    color: #a0a0a0;
+}
+
+/* === Read More Button === */
+.read-more-wrapper {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.read-more-link {
+    background-color: #e5edff;
+    border: 1px solid #2642d4;
+    padding: 6px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    color: #2642d4;
+    cursor: pointer;
+    margin: 0;
+    text-align: center;
+}
+
+.read-more-link:hover {
+    background-color: #c7d8ff;
+    text-decoration: none;
+}
+
+/* === Global Reset === */
+html,
+body {
+    height: 100vh;
+    overflow: auto;
+}
+
+
+/* === Organizer Section === */
+
+.event-organizer {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.organizer-card {
+    border: 1px solid #e3e8ef;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+    font-family: Arial, sans-serif;
+}
+
+.organizer-cover {
+    background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d');
+    background-size: cover;
+    background-position: center;
+    height: 140px;
+    width: 100%;
+}
+
+.organizer-content {
+    position: relative;
+    padding: 20px;
+    padding-top: 60px;
+    text-align: center;
+}
+
+.organizer-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background-color: #c3b2f1;
+    display: inline-block;
+    position: absolute;
+    top: 90px;
+    left: 20px;
+    border: 4px solid white;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.organizer-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 20px;
+    color: #1d1d1f;
+}
+
+.organizer-joined {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 5px 0 15px;
+}
+
+.organizer-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+}
+
+.organizer-stats div {
+    text-align: center;
+}
+
+.organizer-stats strong {
+    font-size: 20px;
+    color: #1d1d1f;
+    display: block;
+}
+
+.organizer-stats span {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.organizer-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.follow-btn {
+    background: white;
+    color: #6c48f1;
+    border: 2px solid #6c48f1;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chat-btn {
+    background-color: #4ea2f3;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
