@@ -79,6 +79,25 @@ export const getUserbyId = createAsyncThunk(
     }
 );
 
+export const getAdminbyId = createAsyncThunk(
+    'auth/getAdminbyId',
+    async (id, { rejectWithValue }) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await API.get(`${API_URL}/getAdminbyId?query=${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            return res.data;
+        } catch (err) {
+            return rejectWithValue(err.response?.data || "Failed to fetch Admin");
+        }
+    }
+);
+
 let token = localStorage.getItem("token");
 let user = localStorage.getItem("user");
 
@@ -96,6 +115,7 @@ const authSlice = createSlice({
         token: !isTokenExpired(token) ? token : null,
         loading: false,
         error: null,
+        admin: null,
     },
     reducers: {
         logout: (state) => {
@@ -151,6 +171,15 @@ const authSlice = createSlice({
             }).addCase(getUserbyId.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload?.message || 'User Fetching Failed'
+            }).addCase(getAdminbyId.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            }).addCase(getAdminbyId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.admin = action.payload;
+            }).addCase(getAdminbyId.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.message || 'Admin Fetching Failed'
             });
     },
 });
