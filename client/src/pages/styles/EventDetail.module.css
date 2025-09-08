@@ -54,20 +54,45 @@
     gap: 20px;
 }
 
+.price-box{
+    border: 1px solid #e3e8ef;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    text-align: center;
+}
+
 .price-box h2 {
-    font-size: 24px;
-    margin-bottom: 5px;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+}
+
+.tax-text {
+    font-size: 12px;
+    color: #6b7280;
+    text-align: center;
+    margin-top: 4px;
 }
 
 .book-now {
-    background-color: #6c48f1;
+    background-color: #5C33FF;
     color: white;
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
     width: 100%;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.book-now:hover{
+    background-color: white;
+    color: #5C33FF;
 }
 
 .contact-organizer,
@@ -260,7 +285,7 @@
 /* === Gallery Section === */
 /* === Gallery Section === */
 
-.event-gallery{
+.event-gallery {
     border: 1px solid #e3e8ef;
     border-radius: 8px;
     margin: 16px 0;
@@ -359,6 +384,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
+
 .organizer-cover {
     background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d');
     background-size: cover;
@@ -384,7 +410,7 @@ body {
     top: 90px;
     left: 20px;
     border: 4px solid white;
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png");
+    /* background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"); */
     background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
@@ -458,4 +484,105 @@ body {
     margin: 0;
     padding: 0;
     cursor: pointer;
+}
+
+/* Right Sidebar Avatar */
+.organizer-avatar-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    background-color: #ccc;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Organizer Profile Avatar */
+.organizer-avatar-large {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background-color: #c3b2f1;
+    position: absolute;
+    top: 90px;
+    left: 20px;
+    border: 4px solid white;
+    background-size: cover;
+    background-position: center;
+}
+
+/* BOOK NOW button full width */
+.book-now {
+    background-color: #6c48f1;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Contact Box */
+.contact-box {
+    border: 1px solid #e3e8ef;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.contact-box-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.organizer-avatar-small {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.contact-box-text {
+    text-align: left;
+    flex: 1;
+}
+
+.contact-question {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1d1d1f;
+    margin: 0;
+}
+
+.contact-subtext {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 4px 0 0;
+}
+
+.contact-organizer {
+    background-color: transparent;
+    color: #6c48f1;
+    border: 1.5px solid #6c48f1;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.contact-organizer:hover {
+    background-color: #6c48f1;
+    color: #fff;
 }
