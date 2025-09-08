@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import ProtectedRoute from "./components/ProtectedRoute";
 import ViewAllEvents from './pages/ViewAllEvents';
 import Profile from './pages/Profile';
+import EventDetail from './pages/EventDetail';
 // import { useSelector } from "react-redux";
 
 
@@ -31,6 +32,7 @@ const App = () => {
                     />
                     <Route path='/allevents' element={<ViewAllEvents />} />
                     <Route path='/profile' element={<Profile />} />
+                    <Route path='/eventdetail/:id' element={<EventDetail />} />
                 </Routes>
             </Router>
         </>
