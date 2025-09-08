@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './EventCard.css';
 import { FaHeart, FaShareAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const EventCard = ({
     name,
     pic,
     date,
     city,
-    price
+    price,
+    id
 }) => {
+
+    const navigate = useNavigate();
 
     const formattedDate = new Date(date).toLocaleDateString("en-US", {
         month: "short",
@@ -19,7 +23,7 @@ const EventCard = ({
 
 
     return (
-        <div className="event-card" onClick={() => { console.log('Indian Events'); }}>
+        <div className="event-card" onClick={() => navigate(`/eventdetail/${id}`)}>
             {/* Top image with icons */}
             <div className="event-image-container">
                 <img
