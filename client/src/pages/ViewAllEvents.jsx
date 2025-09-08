@@ -75,7 +75,7 @@ const ViewAllEvents = () => {
                                 localEvents && localEvents.length > 0
                                     ?
                                     (localEvents.map((event, i) => (
-                                        <EventCard date={event.eventDate} city={event.city} price={event.price} pic={event.photos[0]} name={event.name} key={event._id || i} event={event} />
+                                        <EventCard id={event._id} date={event.eventDate} city={event.city} price={event.price} pic={event.photos[0]} name={event.name} key={event._id || i} event={event} />
                                     )))
                                     :
                                     (
