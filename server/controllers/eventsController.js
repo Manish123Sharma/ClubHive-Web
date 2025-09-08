@@ -38,8 +38,6 @@ exports.createEvent = [
                         folder: "photos",
                     });
                     photoUrls.push(result.secure_url);
-
-                    // delete local file
                     fs.unlink(file.path, err => {
                         if (err) console.error("Failed to delete local file:", err);
                     });
@@ -94,7 +92,7 @@ exports.updateEvent = [
     upload.array("photos", 5),
     async (req, res) => {
         try {
-            const { eventId } = req.body; // MongoDB _id, not event_id
+            const { eventId } = req.body;
             const {
                 name,
                 category,
@@ -103,7 +101,7 @@ exports.updateEvent = [
                 eventTime,
                 registrationEnd,
                 registrationEndTime,
-                deletePhotos // array of photo URLs to delete
+                deletePhotos
             } = req.body;
 
             const event = await Event.findById(eventId);
@@ -111,7 +109,7 @@ exports.updateEvent = [
                 return res.status(404).json({ message: "Event not found" });
             }
 
-            // Update fields (if provided)
+            // Update fields
             if (name) event.name = name;
             if (category) event.category = category;
             if (description) event.description = description;
@@ -150,7 +148,7 @@ exports.updateEvent = [
                 }
             }
 
-            await event.save(); // ✅ event_id remains unchanged
+            await event.save();
 
             res.status(200).json({
                 message: "Event updated successfully",
