@@ -7,7 +7,6 @@ import { getEventbyCountry, getEventbyCity } from '../../redux/slices/eventSlics
 import PropTypes from 'prop-types';
 import Loader from '../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
-import ViewAllEvents from '../../pages/ViewAllEvents';
 
 
 const PopularEvent = ({
@@ -132,7 +131,7 @@ const PopularEvent = ({
                             <div className="slider-container" ref={sliderRef}>
                                 {localEvents && localEvents.length > 0 ? (
                                     localEvents.map((event, i) => (
-                                        <EventCard date={event.eventDate} city={event.city} price={event.price} pic={event.photos[0]} name={event.name} key={event._id || i} event={event} />
+                                        <EventCard date={event.eventDate} city={event.city} price={event.price} pic={event.photos[0]} name={event.name} key={event._id || i} event={event} id={event._id} />
                                     ))
                                 ) : (
                                     <p>No events found in {titleLocation}</p>
