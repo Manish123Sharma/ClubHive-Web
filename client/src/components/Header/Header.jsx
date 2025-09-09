@@ -88,6 +88,7 @@ const Header = () => {
 
     const handleViewEdit = () => {
         console.log('Editing');
+        navigate('/profile');
     };
 
     return (
