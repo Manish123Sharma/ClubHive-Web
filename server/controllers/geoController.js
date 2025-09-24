@@ -16,6 +16,7 @@ exports.updateAll = async (req, res) => {
 };
 
 
+
 exports.getAllCountry = async (req, res) => {
     try {
         const country = await Country.find();
@@ -24,6 +25,7 @@ exports.getAllCountry = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
 
 exports.getAllState = async (req, res) => {
     try {
