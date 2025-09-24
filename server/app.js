@@ -12,8 +12,8 @@ require('./db/connect');
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:5173", // your frontend URL
-    credentials: true, // allow cookies/auth headers
+    origin: "http://localhost:5173",
+    credentials: true,
 }));
 
 
