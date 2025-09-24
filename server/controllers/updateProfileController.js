@@ -61,18 +61,16 @@ exports.uploadProfilePic = [
             }
             const filePath = req.file.path;
 
-            // upload to cloudinary
+
             const result = await cloudinary.uploader.upload(filePath, {
                 folder: "profile_pic",
             });
 
-            // delete local file after upload
-            // fs.unlinkSync(filePath);
             fs.unlink(filePath, err => {
                 if (err) console.error("Failed to delete local file:", err);
             });
 
-            // update user profile with Cloudinary URL
+
             const user = await User.findByIdAndUpdate(
                 req.body.userId,
                 { profile_pic: result.secure_url },
