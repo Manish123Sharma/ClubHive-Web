@@ -6,18 +6,21 @@ import { jwtDecode } from "jwt-decode";
 
 const API_URL = "/auth";
 
+
 const isTokenExpired = (token) => {
     try {
         const decoded = jwtDecode(token);
         if (!decoded.exp) return false;
-        const currentTime = Date.now() / 1000; // in seconds
+        const currentTime = Date.now() / 1000;
         return decoded.exp < currentTime;
     } catch (err) {
         console.log(err);
 
-        return true; // if invalid token, treat as expired
+        return true; 
     }
 };
+
+
 
 // Register
 export const register = createAsyncThunk(
@@ -38,6 +41,8 @@ export const register = createAsyncThunk(
         }
     }
 );
+
+
 
 // Login
 export const login = createAsyncThunk(
@@ -60,6 +65,8 @@ export const login = createAsyncThunk(
     }
 );
 
+
+//Get User By ID
 export const getUserbyId = createAsyncThunk(
     'auth/getUserbyId',
     async (id, { rejectWithValue }) => {
@@ -79,6 +86,8 @@ export const getUserbyId = createAsyncThunk(
     }
 );
 
+
+//Get Admin By ID
 export const getAdminbyId = createAsyncThunk(
     'auth/getAdminbyId',
     async (id, { rejectWithValue }) => {
