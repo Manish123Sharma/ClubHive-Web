@@ -89,12 +89,12 @@ const UserSchema = new Schema({
 );
 
 UserSchema.pre('save', async function (next) {
-    // Generate unique user_id if not present
+
     if (!this.user_id) {
         this.user_id = uuidv4();
     }
 
-    // Trim and clean name
+
     if (this.fullName) {
         this.fullName = this.fullName.trim();
     }
@@ -106,7 +106,6 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
-// Compare entered password with hashed password
 UserSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
