@@ -10,7 +10,7 @@ async function seedGeoData() {
         const { data } = await axios.get(url);
 
         for (const country of data) {
-            // Build country doc explicitly
+
             const countryDoc = await Country.findOneAndUpdate(
                 { iso2: country.iso2 },
                 {
