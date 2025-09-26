@@ -72,8 +72,8 @@ The app should now be running on:
 
 ## 🤝 Contributing
 
--Contributions are welcome!
--Feel free to fork this repo, create a new branch, and submit a PR.
+- Contributions are welcome!
+- Feel free to fork this repo, create a new branch, and submit a PR.
 
 ---
 
