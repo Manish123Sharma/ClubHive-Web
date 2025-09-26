@@ -49,17 +49,6 @@ const Profile = () => {
                             <button className={styles.outlineBtn}>Change Password</button>
                         </div>
                         <div>
-                            <p>Your Townscript Profile Link</p>
-                            <a
-                                href="https://townscript.com/o/manish-sharma-241242"
-                                target="_blank"
-                                rel="noreferrer"
-                                className={styles.link}
-                            >
-                                townscript.com/o/manish-sharma-241242
-                            </a>
-                        </div>
-                        <div>
                             <p>Timezone</p>
                             <span>Asia/Calcutta</span>
                         </div>
