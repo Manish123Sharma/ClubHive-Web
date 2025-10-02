@@ -74,7 +74,7 @@
     height: 90px;
     border-radius: 50%;
     border: 3px solid #4527a0;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .userInfo h2 {
