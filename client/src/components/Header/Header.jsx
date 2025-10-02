@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaSearch, FaChevronDown, FaBook, FaHeart, FaSignOutAlt } from "react-icons/fa";
-import { MdLocationOn } from "react-icons/md";
+// import { MdLocationOn } from "react-icons/md";
 import './Header.css';
 import logo from '../../assets/logo.png';
 import { logout, getUserbyId } from "../../redux/slices/authSlice.js";
