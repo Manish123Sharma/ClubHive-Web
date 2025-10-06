@@ -79,6 +79,7 @@ export const getUserbyId = createAsyncThunk(
                     },
                 }
             );
+            console.log(res.data);
             return res.data;
         } catch (err) {
             return rejectWithValue(err.response?.data || "Failed to fetch user");
