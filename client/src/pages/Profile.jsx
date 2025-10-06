@@ -1,38 +1,81 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles/Profile.module.css';
 import clubhive from '../assets/logo.png';
-import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaInstagram, FaSignOutAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUserbyId } from '../redux/slices/authSlice';
+import { logout, getUserbyId } from '../redux/slices/authSlice';
+import profile from '../assets/profile.png';
 
 const Profile = () => {
-
-    // const [name, setName] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user, loading } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
+    const [profileOpen, setProfileOpen] = useState(false);
+    const profileRef = useRef(null);
+
+    const toggleProfile = () => setProfileOpen((prev) => !prev);
 
     useEffect(() => {
         const savedUser = JSON.parse(localStorage.getItem("user"));
         if (savedUser?._id) {
-            dispatch(getUserbyId(savedUser._id));
+            dispatch(getUserbyId(savedUser._id)).then((res) => {
+                if (res?.payload) {
+                    localStorage.setItem("currentUser", JSON.stringify(res.payload));
+                }
+            });
         }
+
+        // Remove current user when leaving profile page
+        return () => {
+            localStorage.removeItem("currentUser");
+        };
     }, [dispatch]);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (profileRef.current && !profileRef.current.contains(event.target)) {
+                setProfileOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate("/login");
+    };
 
     return (
         <div className={styles.profilePage}>
-            {/* Top Navbar */}
+            {/* Navbar */}
             <div className={styles.navbar}>
                 <div className={styles.logo}>
-                    <img src={clubhive} alt="logo" className={styles.logoImg} />
+                    <a href="/home">
+                        <img src={clubhive} alt="logo" className={styles.logoImg} />
+                    </a>
                 </div>
-                <div className={styles.userAvatar}>
-                    <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTp2uVL_20SWV4DLCWNLZGl4ndAmxA0DxRcw&s"
-                        alt="user avatar"
-                        className={styles.avatarImg}
-                    />
+
+                <div className={styles.nav_right} ref={profileRef}>
+                    <div className={styles.userAvatar} onClick={toggleProfile}>
+                        <img
+                            src={user?.profile_pic || profile}
+                            alt="user avatar"
+                            className={styles.avatarImg}
+                        />
+                    </div>
+
+                    {profileOpen && (
+                        <div className={styles.profileDropdown}>
+                            <ul className={styles.dropdownList}>
+                                <li onClick={handleLogout}>
+                                    <FaSignOutAlt /> Logout
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -41,36 +84,32 @@ const Profile = () => {
                 <div className={styles.userInfo}>
                     <div className={styles.profile}>
                         <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTp2uVL_20SWV4DLCWNLZGl4ndAmxA0DxRcw&s"
+                            src={user?.profile_pic || profile}
                             alt="profile"
                             className={styles.profilePic}
                         />
                         <div>
-                            <h2>Manish Sharma</h2>
-                            <p>mks595275@gmail.com</p>
-                            <p className={styles.phone}></p>
+                            <h2>{user?.fullName || "Unknown User"}</h2>
+                            <p>{user?.email || "No Email"}</p>
                         </div>
                     </div>
-                    <button className={styles.editBtn}>✎ Edit</button>
+                    <button className={styles.outlineBtn}>✎ Edit</button>
                 </div>
 
                 <hr className={styles.divider} />
 
-                {/* Account Settings */}
                 <div className={styles.accountSettings}>
                     <h3>Account Settings</h3>
-                    <div className={styles.settingsRow}>
-                        <div>
-                            <p>Password</p>
+                    {/* <div className={styles.settingsRow}> */}
+                        <div className={styles.changePass}>
+                            <p>Change Password</p>
                             <button className={styles.outlineBtn}>Change Password</button>
                         </div>
-                        <div>
+                        {/* <div>
                             <p>Timezone</p>
                             <span>Asia/Calcutta</span>
-                        </div>
-                    </div>
-
-                    {/* Cover Picture */}
+                        </div> */}
+                    {/* </div> */}
                     <div className={styles.coverPicture}>
                         <p>
                             Cover Picture{" "}
@@ -83,25 +122,6 @@ const Profile = () => {
                 </div>
 
                 <hr className={styles.divider} />
-
-                {/* Social Media */}
-                {/* <div className={styles.socialMedia}>
-                    <h3>Social Media Accounts</h3>
-                    <div className={styles.socialLinks}>
-                        <div>
-                            <p>Facebook Page Link</p>
-                            <span>NA</span>
-                        </div>
-                        <div>
-                            <p>Twitter Profile Link</p>
-                            <span>NA</span>
-                        </div>
-                        <div>
-                            <p>Instagram Profile Link</p>
-                            <span>NA</span>
-                        </div>
-                    </div>
-                </div> */}
 
                 <div className={styles.socialMedia}>
                     <h3>Social Media Accounts</h3>
@@ -123,10 +143,9 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );
-}
+};
 
 export default Profile;
