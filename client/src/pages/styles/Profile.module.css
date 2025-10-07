@@ -102,14 +102,21 @@
     padding: 30px 80px;
 }
 
-.userInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.main_profile{
     background: #ffffff;
     padding: 25px 35px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.userInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: #ffffff;
+    padding: 25px 35px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
 }
 
 .profile {
