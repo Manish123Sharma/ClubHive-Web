@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { logout, getUserbyId } from '../redux/slices/authSlice';
 import profile from '../assets/profile.png';
 import UpdateProfile from '../components/Profile/Account/UpdateProfile';
+import UpdatePassword from '../components/Profile/Passowrd/UpdatePassword';
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -15,9 +16,11 @@ const Profile = () => {
     const [profileOpen, setProfileOpen] = useState(false);
     const profileRef = useRef(null);
     const [updateProfilereq, setUpdateProfilereq] = useState(false);
+    const [updatePassword, setUpdatePassword] = useState(false);
 
     const toggleProfile = () => setProfileOpen((prev) => !prev);
     const toggleProfileEdit = () => setUpdateProfilereq((prev) => !prev);
+    const togglePasswordEdit = () => setUpdatePassword((prev) => !prev);
 
     useEffect(() => {
         const savedUser = JSON.parse(localStorage.getItem("user"));
@@ -112,8 +115,11 @@ const Profile = () => {
                     {/* <div className={styles.settingsRow}> */}
                     <div className={styles.changePass}>
                         <p>Change Password</p>
-                        <button className={styles.outlineBtn}>Change Password</button>
+                        <button onClick={togglePasswordEdit} className={styles.outlineBtn}>Change Password</button>
                     </div>
+                    {updatePassword && (
+                        <UpdatePassword onclose={() => setUpdatePassword(false)} />
+                    )}
                     {/* <div>
                             <p>Timezone</p>
                             <span>Asia/Calcutta</span>
