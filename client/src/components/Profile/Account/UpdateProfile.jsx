@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from './UpdateProfile.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { profilePic, updateProfile } from '../../../redux/slices/authSlice';
+import { toast } from 'react-toastify';
+import profile from '../../../assets/profile.png';
+import { FaEdit } from 'react-icons/fa';
 
-const UpdateProfile = () => {
+const UpdateProfile = ({ onClose }) => {
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.auth.user);
+    const [previewImage, setPreviewImage] = useState(null);
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -20,6 +28,7 @@ const UpdateProfile = () => {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser) {
             setFormData({
+                userId: currentUser._id,
                 fullName: currentUser.fullName || '',
                 email: currentUser.email || '',
                 city: currentUser.city || '',
@@ -32,7 +41,9 @@ const UpdateProfile = () => {
                 bio: currentUser.bio || '',
                 country: currentUser.country || '',
                 primarySport: currentUser.primarySport || '',
+                profile_pic: currentUser.profile_pic || ''
             });
+            setPreviewImage(currentUser.profile_pic || profile);
         }
     }, []);
 
@@ -41,16 +52,70 @@ const UpdateProfile = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Updated Profile Data:", formData);
-        // You can dispatch an update API call here later
+        try {
+            const resultAction = await dispatch(updateProfile(formData));
+            if (updateProfile.fulfilled.match(resultAction)) {
+                toast.success('Profile Updated');
+                onClose();
+            } else {
+                toast.error('Failed to update profile ❌');
+            }
+        } catch (error) {
+            console.error("Update failed:", error);
+        }
+    };
+
+    const handleImageChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const imageUrl = URL.createObjectURL(file);
+        setPreviewImage(imageUrl);
+
+        // Automatically upload the photo
+        try {
+            const resultAction = await dispatch(profilePic({
+                userId: currentUser._id,
+                file
+            }));
+
+            if (profilePic.fulfilled.match(resultAction)) {
+                toast.success('Profile picture updated successfully ✅');
+            } else {
+                toast.error('Failed to upload profile picture ❌');
+            }
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (
         <div className={styles.updateProfileContainer}>
             <form onSubmit={handleSubmit} className={styles.updateForm}>
+                <div className={styles.profileImageSection}>
+                    <div className={styles.profilePicWrapper}>
+                        <img
+                            src={previewImage}
+                            alt="Profile"
+                            className={styles.profilePic}
+                        />
+                        <label htmlFor="profilePicUpload" className={styles.editIcon}>
+                            <FaEdit />
+                        </label>
+                        <input
+                            type="file"
+                            id="profilePicUpload"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            style={{ display: 'none' }}
+                        />
+                    </div>
+                </div>
+
                 <div className={styles.formGrid}>
+                    {/* All other input fields */}
                     <div className={styles.formGroup}>
                         <label>Full Name</label>
                         <input
@@ -161,7 +226,7 @@ const UpdateProfile = () => {
 
                 <div className={styles.formActions}>
                     <button type="submit" className={styles.saveBtn}>Save Changes</button>
-                    <button type="button" className={styles.cancelBtn}>Cancel</button>
+                    <button onClick={onClose} type="button" className={styles.cancelBtn}>Cancel</button>
                 </div>
             </form>
         </div>
