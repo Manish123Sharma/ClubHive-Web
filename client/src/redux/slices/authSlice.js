@@ -65,6 +65,27 @@ export const login = createAsyncThunk(
     }
 );
 
+//Update Password
+export const updatePass = createAsyncThunk(
+    'auth/updatePass',
+    async ({ userId, oldPassword, newPassword }, { rejectWithValue }) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await API.post(
+                `/auth/updatePass`,
+                { userId, oldPassword, newPassword },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            return res.data; // message: "Password updated successfully"
+        } catch (err) {
+            return rejectWithValue(err.response?.data || { message: 'Password update failed' });
+        }
+    }
+);
 
 //Get User By ID
 export const getUserbyId = createAsyncThunk(
@@ -265,6 +286,17 @@ const authSlice = createSlice({
             .addCase(profilePic.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            }).addCase(updatePass.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updatePass.fulfilled, (state, action) => {
+                state.loading = false;
+                state.success = action.payload.message;
+            })
+            .addCase(updatePass.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.message || 'Password update failed';
             });
     },
 });
