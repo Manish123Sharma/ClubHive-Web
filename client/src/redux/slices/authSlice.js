@@ -16,7 +16,7 @@ const isTokenExpired = (token) => {
     } catch (err) {
         console.log(err);
 
-        return true; 
+        return true;
     }
 };
 
@@ -32,8 +32,8 @@ export const register = createAsyncThunk(
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user", JSON.stringify({
                 _id: res.data._id,
-                fullName: res.data.fullName,
-                email: res.data.email
+                // fullName: res.data.fullName,
+                // email: res.data.email
             }));
             return res.data;
         } catch (err) {
@@ -54,8 +54,8 @@ export const login = createAsyncThunk(
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user", JSON.stringify({
                 _id: res.data._id,
-                fullName: res.data.fullName,
-                email: res.data.email
+                // fullName: res.data.fullName,
+                // email: res.data.email
             }));
 
             return res.data;
@@ -104,6 +104,55 @@ export const getAdminbyId = createAsyncThunk(
             return res.data;
         } catch (err) {
             return rejectWithValue(err.response?.data || "Failed to fetch Admin");
+        }
+    }
+);
+
+//Update User Info
+export const updateProfile = createAsyncThunk(
+    'profile/updateProfile',
+    async (formData, { rejectWithValue }) => {
+        try {
+            // const token = localStorage.getItem("token");
+            console.log(formData);
+            const res = await API.post(`/profile/updateProfile`, formData);
+            console.log(res);
+
+            // Update user info in localStorage
+            localStorage.setItem("currentUser", JSON.stringify(res.data));
+
+            return res.data;
+        } catch (err) {
+            console.log(err);
+
+            return rejectWithValue(err.response?.data || "Profile update failed");
+        }
+    }
+);
+
+//Update User Profile Pic
+export const profilePic = createAsyncThunk(
+    'profile/profilePic',
+    async ({ userId, file }, { rejectWithValue }) => {
+        try {
+            const formData = new FormData();
+            formData.append('userId', userId);
+            formData.append('profile_pic', file);
+
+            const token = localStorage.getItem("token");
+            const res = await API.post(`/profile/profilePic`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            // Update localStorage with new user data
+            localStorage.setItem("currentUser", JSON.stringify(res.data.user));
+
+            return res.data.user;
+        } catch (err) {
+            return rejectWithValue(err.response?.data || "Profile pic upload failed");
         }
     }
 );
@@ -190,6 +239,32 @@ const authSlice = createSlice({
             }).addCase(getAdminbyId.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload?.message || 'Admin Fetching Failed'
+            }).addCase(updateProfile.pending, (state) => {
+                state.loading = true;
+                state.success = null;
+            })
+            .addCase(updateProfile.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+                state.success = "Profile updated successfully";
+            })
+            .addCase(updateProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            // Upload Profile Picture
+            .addCase(profilePic.pending, (state) => {
+                state.loading = true;
+                state.success = null;
+            })
+            .addCase(profilePic.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = { ...state.user, profile_pic: action.payload.profile_pic };
+                state.success = "Profile picture updated successfully";
+            })
+            .addCase(profilePic.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
