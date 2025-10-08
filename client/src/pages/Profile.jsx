@@ -14,10 +14,10 @@ const Profile = () => {
     const { user } = useSelector((state) => state.auth);
     const [profileOpen, setProfileOpen] = useState(false);
     const profileRef = useRef(null);
-    const [updateProfile, setUpdateProfile] = useState(false);
+    const [updateProfilereq, setUpdateProfilereq] = useState(false);
 
     const toggleProfile = () => setProfileOpen((prev) => !prev);
-    const toggleProfileEdit = () => setUpdateProfile((prev) => !prev);
+    const toggleProfileEdit = () => setUpdateProfilereq((prev) => !prev);
 
     useEffect(() => {
         const savedUser = JSON.parse(localStorage.getItem("user"));
@@ -99,8 +99,8 @@ const Profile = () => {
                         </div>
                         <button onClick={toggleProfileEdit} className={styles.outlineBtn}>✎ Edit</button>
                     </div>
-                    {updateProfile && (
-                        <UpdateProfile />
+                    {updateProfilereq && (
+                        <UpdateProfile onClose={() => setUpdateProfilereq(false)} />
                     )}
                 </div>
 
