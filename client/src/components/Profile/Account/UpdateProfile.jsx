@@ -5,6 +5,7 @@ import { profilePic, updateProfile } from '../../../redux/slices/authSlice';
 import { toast } from 'react-toastify';
 import profile from '../../../assets/profile.png';
 import { FaEdit } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 const UpdateProfile = ({ onClose }) => {
     const dispatch = useDispatch();
@@ -115,11 +116,11 @@ const UpdateProfile = ({ onClose }) => {
                 </div>
 
                 <div className={styles.formGrid}>
-                    {/* All other input fields */}
                     <div className={styles.formGroup}>
-                        <label>Full Name</label>
+                        <label htmlFor="fullName">Full Name</label>
                         <input
                             type="text"
+                            id="fullName"
                             name="fullName"
                             value={formData.fullName}
                             onChange={handleChange}
@@ -127,9 +128,10 @@ const UpdateProfile = ({ onClose }) => {
                     </div>
 
                     <div className={styles.formGroup}>
-                        <label>Email</label>
+                        <label htmlFor="email">Email</label>
                         <input
                             type="email"
+                            id="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
@@ -137,9 +139,10 @@ const UpdateProfile = ({ onClose }) => {
                     </div>
 
                     <div className={styles.formGroup}>
-                        <label>City</label>
+                        <label htmlFor="city">City</label>
                         <input
                             type="text"
+                            id="city"
                             name="city"
                             value={formData.city}
                             onChange={handleChange}
@@ -147,9 +150,10 @@ const UpdateProfile = ({ onClose }) => {
                     </div>
 
                     <div className={styles.formGroup}>
-                        <label>State</label>
+                        <label htmlFor="state">State</label>
                         <input
                             type="text"
+                            id="state"
                             name="state"
                             value={formData.state}
                             onChange={handleChange}
@@ -157,8 +161,9 @@ const UpdateProfile = ({ onClose }) => {
                     </div>
 
                     <div className={styles.formGroup}>
-                        <label>Gender</label>
+                        <label htmlFor="gender">Gender</label>
                         <select
+                            id="gender"
                             name="gender"
                             value={formData.gender}
                             onChange={handleChange}
@@ -171,9 +176,10 @@ const UpdateProfile = ({ onClose }) => {
                     </div>
 
                     <div className={styles.formGroup}>
-                        <label>Date of Birth</label>
+                        <label htmlFor="dateOfBirth">Date of Birth</label>
                         <input
                             type="date"
+                            id="dateOfBirth"
                             name="dateOfBirth"
                             value={formData.dateOfBirth}
                             onChange={handleChange}
@@ -214,8 +220,9 @@ const UpdateProfile = ({ onClose }) => {
                     </div>
 
                     <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-                        <label>Bio</label>
+                        <label htmlFor="bio">Bio</label>
                         <textarea
+                            id="bio"
                             name="bio"
                             rows="3"
                             value={formData.bio}
@@ -231,6 +238,9 @@ const UpdateProfile = ({ onClose }) => {
             </form>
         </div>
     );
+};
+UpdateProfile.propTypes = {
+    onClose: PropTypes.func.isRequired,
 };
 
 export default UpdateProfile;
