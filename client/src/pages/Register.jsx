@@ -172,8 +172,8 @@ const Register = () => {
             localStorage.setItem("token", result.payload.token);
             localStorage.setItem("user", JSON.stringify({
                 _id: result.payload._id,
-                fullName: result.payload.fullName,
-                email: result.payload.email
+                // fullName: result.payload.fullName,
+                // email: result.payload.email
             }));
             toast.success("Registration Successful!");
             resetFields();
