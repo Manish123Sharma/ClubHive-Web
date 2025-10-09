@@ -146,13 +146,13 @@ const Header = () => {
             {/* Right Section */}
             <div className="header-right" ref={profileRef}>
                 <div className="profile" onClick={toggleProfile}>
-                    <img src={user?.profilePic || profile} alt="profile" />
+                    <img src={user?.profile_pic || profile} alt="profile" />
                 </div>
 
                 {/* Profile Dropdown */}
                 <div className={`profile-dropdown ${profileOpen ? "open" : "closed"}`}>
                     <div className="profile-header">
-                        <img src={user?.profilePic || profile} alt="profile" />
+                        <img src={user?.profile_pic || profile} alt="profile" />
                         <div>
                             <h4>{user?.fullName || "Guest User"}</h4>
                             <span className="edit-profile" onClick={handleViewEdit}>
