@@ -171,10 +171,11 @@ const Register = () => {
         if (result.meta.requestStatus === "fulfilled") {
             localStorage.setItem("token", result.payload.token);
             localStorage.setItem("user", JSON.stringify({
-                _id: result.payload._id,
+                _id: result.payload.user._id,
                 // fullName: result.payload.fullName,
                 // email: result.payload.email
             }));
+            localStorage.setItem("currentUser", JSON.stringify(result.payload.user));
             toast.success("Registration Successful!");
             resetFields();
             navigate("/home");
