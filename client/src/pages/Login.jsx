@@ -39,14 +39,16 @@ const Login = () => {
             password,
         };
         const result = await dispatch(login(credentials));
-
+        console.log('Result: ', result);
+        
         if (result.meta.requestStatus === "fulfilled") {
             localStorage.setItem("token", result.payload.token);
             localStorage.setItem("user", JSON.stringify({
-                _id: result.payload._id,
+                _id: result.payload.user._id,
                 // fullName: result.payload.fullName,
                 // email: result.payload.email
             }));
+            localStorage.setItem("currentUser", JSON.stringify(result.payload.user));
             toast.success("Login Successful!");
             resetFields();
             navigate("/home");
