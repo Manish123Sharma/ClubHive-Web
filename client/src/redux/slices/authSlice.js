@@ -35,6 +35,7 @@ export const register = createAsyncThunk(
                 // fullName: res.data.fullName,
                 // email: res.data.email
             }));
+            localStorage.setItem("currentUser", res.data.user);
             return res.data;
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response?.data || err.message);
@@ -57,7 +58,7 @@ export const login = createAsyncThunk(
                 // fullName: res.data.fullName,
                 // email: res.data.email
             }));
-
+            localStorage.setItem("currentUser", res.data.user);
             return res.data;
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response?.data || err.message);
@@ -203,6 +204,7 @@ const authSlice = createSlice({
             state.token = null;
             localStorage.removeItem("token");
             localStorage.removeItem("user");
+            localStorage.removeItem("currentUser");
         },
     },
     extraReducers: (builder) => {
