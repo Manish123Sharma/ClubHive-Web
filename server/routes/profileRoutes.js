@@ -11,4 +11,7 @@ router.post('/profilePic', updateProfileController.uploadProfilePic);
 
 router.post('/profilePicAdmin', updateProfileAdminController.uploadProfilePicAdmin);
 
+router.post('/coverPic', updateProfileController.uploadCoverPic);
+
+
 module.exports = router;
