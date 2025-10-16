@@ -83,3 +83,36 @@ exports.uploadProfilePic = [
         }
     },
 ];
+
+
+exports.uploadCoverPic = [
+    upload.single("cover_pic"),
+    async (req, res) => {
+        try {
+            if (!req.file) {
+                return res.status(400).json({ success: false, message: "No file uploaded" });
+            }
+            const filePath = req.file.path;
+
+
+            const result = await cloudinary.uploader.upload(filePath, {
+                folder: "cover_pic",
+            });
+
+            fs.unlink(filePath, err => {
+                if (err) console.error("Failed to delete local file:", err);
+            });
+
+
+            const user = await User.findByIdAndUpdate(
+                req.body.userId,
+                { cover_pic: result.secure_url },
+                { new: true }
+            );
+
+            res.json({ success: true, user });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    },
+];
