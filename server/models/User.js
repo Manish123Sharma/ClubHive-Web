@@ -39,6 +39,10 @@ const UserSchema = new Schema({
         type: SchemaTypes.String,
         default: ''
     },
+    cover_pic: {
+        type: SchemaTypes.String,
+        default: ''
+    },
     city: {
         type: SchemaTypes.String,
         required: true,
@@ -47,6 +51,12 @@ const UserSchema = new Schema({
         type: SchemaTypes.String,
         required: true,
     },
+    following: [
+        {
+            type: SchemaTypes.ObjectId,
+            ref: 'Admin'
+        }
+    ],
     state: {
         type: SchemaTypes.String,
         required: true,
@@ -81,7 +91,21 @@ const UserSchema = new Schema({
             type: SchemaTypes.ObjectId,
             ref: 'Events'
         }
-    ]
+    ],
+    socialLinks: {
+        instagram: {
+            type: SchemaTypes.String,
+            default: ''
+        },
+        twitter: {
+            type: SchemaTypes.String,
+            default: ''
+        },
+        facebook: {
+            type: SchemaTypes.String,
+            default: ''
+        }
+    }
 },
     {
         timestamps: true
