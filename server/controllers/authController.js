@@ -38,16 +38,10 @@ exports.registerUser = async (req, res) => {
             dateOfBirth,
             country
         });
+        const { password: _, ...userWithoutPassword } = user.toObject();
         res.status(201).json({
-            _id: user.id,
-            fullName: user.fullName,
-            email: user.email,
-            // city: user.city,
-            // state: user.state,
-            // phoneNumber: user.phoneNumber,
-            // dateOfBirth: user.dateOfBirth,
-            // gender: user.gender,
-            token: generateToken(user.id)
+            token: generateToken(user.id),
+            user: userWithoutPassword
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -61,11 +55,13 @@ exports.loginUser = async (req, res) => {
             email
         });
         if (user && (await user.matchPassword(password))) {
+            const { password: _, ...userWithoutPassword } = user.toObject();
             res.json({
-                _id: user.id,
-                fullName: user.fullName,
-                email: user.email,
-                token: generateToken(user.id)
+                // _id: user.id,
+                // fullName: user.fullName,
+                // email: user.email,
+                token: generateToken(user.id),
+                user: userWithoutPassword
             });
         } else {
             res.status(401).json({
@@ -217,11 +213,16 @@ exports.getUserbyName = async (req, res) => {
             return res.status(400).json({ message: "Query is required" });
         }
 
-        const user = await User.find({
-            $or: [
-                { fullName: { $regex: query, $options: "i" } }
-            ]
-        });
+        // const user = await User.find({ $or: [{ fullName: { $regex: query, $options: "i" } }] });
+
+        const user = await User.find(
+            {
+                $or: [
+                    { fullName: { $regex: query, $options: "i" } }
+                ]
+            },
+            "-password"
+        );
 
         res.json(user);
     } catch (err) {
@@ -237,7 +238,8 @@ exports.getUserbyId = async (req, res) => {
             return res.status(400).json({ message: "User ID is required" });
         }
 
-        const user = await User.findById(query);
+        // const user = await User.findById(query);
+        const user = await User.findById(query).select("-password");
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
