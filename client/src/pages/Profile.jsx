@@ -8,6 +8,7 @@ import { logout, getUserbyId } from '../redux/slices/authSlice';
 import profile from '../assets/profile.png';
 import UpdateProfile from '../components/Profile/Account/UpdateProfile';
 import UpdatePassword from '../components/Profile/Passowrd/UpdatePassword';
+import UpdateCoverPic from '../components/Profile/Cover Pic/UpdateCoverPic';
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -17,10 +18,12 @@ const Profile = () => {
     const profileRef = useRef(null);
     const [updateProfilereq, setUpdateProfilereq] = useState(false);
     const [updatePassword, setUpdatePassword] = useState(false);
+    const [updateCover, setUpdateCover] = useState(false);
 
     const toggleProfile = () => setProfileOpen((prev) => !prev);
     const toggleProfileEdit = () => setUpdateProfilereq((prev) => !prev);
     const togglePasswordEdit = () => setUpdatePassword((prev) => !prev);
+    const toggleCoverEdit = () => setUpdateCover((prev) => !prev);
 
     useEffect(() => {
         const savedUser = JSON.parse(localStorage.getItem("user"));
@@ -132,8 +135,11 @@ const Profile = () => {
                                 (Min Size: 1920px x 738px)
                             </span>
                         </p>
-                        <button className={styles.outlineBtn}>Upload Cover Image</button>
+                        <button onClick={toggleCoverEdit} className={styles.outlineBtn}>Upload Cover Image</button>
                     </div>
+                    {updateCover && (
+                        <UpdateCoverPic onclose={() => setUpdateCover(false)} />
+                    )}
                 </div>
 
                 <hr className={styles.divider} />
