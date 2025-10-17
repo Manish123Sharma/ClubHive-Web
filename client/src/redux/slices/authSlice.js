@@ -179,6 +179,33 @@ export const profilePic = createAsyncThunk(
     }
 );
 
+//Update User Cover Pic
+export const coverPic = createAsyncThunk(
+    'profile/coverPic',
+    async ({ userId, file }, { rejectWithValue }) => {
+        try {
+            const formData = new FormData();
+            formData.append('userId', userId);
+            formData.append('cover_pic', file);
+
+            const token = localStorage.getItem("token");
+            const res = await API.post(`/profile/coverPic`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            // Update localStorage with new user data
+            localStorage.setItem("currentUser", JSON.stringify(res.data.user));
+
+            return res.data.user;
+        } catch (err) {
+            return rejectWithValue(err.response?.data || "Cover pic upload failed");
+        }
+    }
+);
+
 let token = localStorage.getItem("token");
 let user = localStorage.getItem("user");
 
@@ -299,6 +326,18 @@ const authSlice = createSlice({
             .addCase(updatePass.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload?.message || 'Password update failed';
+            }).addCase(coverPic.pending, (state) => {
+                state.loading = true;
+                state.success = null;
+            })
+            .addCase(coverPic.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = { ...state.user, cover_pic: action.payload.cover_pic };
+                state.success = "Cover picture updated successfully";
+            })
+            .addCase(coverPic.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
