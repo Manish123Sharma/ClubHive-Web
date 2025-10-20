@@ -17,5 +17,7 @@ router.post('/following', updateProfileController.updateFollwing);
 
 router.post('/eventsPart', updateProfileController.updateEventParticipate);
 
+router.post('/favourite', updateProfileController.updateFavourites);
+
 
 module.exports = router;
