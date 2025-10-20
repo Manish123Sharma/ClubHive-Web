@@ -271,6 +271,8 @@ exports.getAdminbyName = async (req, res) => {
     }
 };
 
+
+
 exports.getAdminbyId = async (req, res) => {
     try {
         const query = req.query.query;
