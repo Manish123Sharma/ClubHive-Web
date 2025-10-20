@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Admin = require('../models/Admin');
+const Events = require('../models/Event');
 const fs = require('fs');
 const multer = require("multer");
 const cloudinary = require('cloudinary');
@@ -46,7 +48,9 @@ exports.updateProfile = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        res.json(updatedUser);
+        const { password: _, ...userWithoutPass } = updatedUser.toObject();
+
+        res.json(userWithoutPass);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -77,7 +81,9 @@ exports.uploadProfilePic = [
                 { new: true }
             );
 
-            res.json({ success: true, user });
+            const { password: _, ...userWithoutPass } = user.toObject();
+
+            res.json({ success: true, userWithoutPass });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
@@ -110,9 +116,92 @@ exports.uploadCoverPic = [
                 { new: true }
             );
 
-            res.json({ success: true, user });
+            const { password: _, ...userWithoutPass } = user.toObject();
+
+            res.json({ success: true, userWithoutPass });
+
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
     },
 ];
+
+
+exports.updateFollwing = async (req, res) => {
+    try {
+        const { userId, adminId } = req.body;
+
+        if (!userId || !adminId) {
+            return res.status(400).json({ message: "userId and adminId are required" });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        const admin = await Admin.findById(adminId);
+        if (!admin) return res.status(404).json({ message: "Admin not found" });
+
+        const isFollowing = user.following.some(
+            (id) => id.toString() === admin._id.toString()
+        );
+
+        if (isFollowing) {
+            // Unfollow
+            user.following = user.following.filter(
+                (id) => id.toString() !== admin._id.toString()
+            );
+            await user.save();
+
+            return res.status(200).json({
+                message: "Unfollowed successfully"
+            });
+        } else {
+            // Follow
+            user.following.push(admin._id); // ✅ only push the ID
+            await user.save();
+
+            return res.status(200).json({
+                message: "Followed successfully"
+            });
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+exports.updateEventParticipate = async (req, res) => {
+    try {
+
+        const { userId, eventId } = req.body;
+
+        // Validate input
+        if (!userId || !eventId) {
+            return res.status(400).json({ message: "userId and eventId are required" });
+        }
+
+        // Find user and event
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        const event = await Events.findById(eventId);
+        if (!event) return res.status(404).json({ message: "Event not found" });
+
+        // Check if already participated
+        const alreadyParticipated = user.eventsParticipated.includes(event._id);
+        if (alreadyParticipated) {
+            return res.status(400).json({ message: "User already participated in this event" });
+        }
+
+        // Add event to user's participated list
+        user.eventsParticipated.push(event._id);
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Event participation updated successfully"
+        });
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
