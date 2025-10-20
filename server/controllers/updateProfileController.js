@@ -206,4 +206,8 @@ exports.updateEventParticipate = async (req, res) => {
     }
 };
 
-exports.updateFavourites = async (req, res) => {};
+exports.updateFavourites = async (req, res) => {
+    try { } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
