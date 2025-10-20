@@ -207,7 +207,49 @@ exports.updateEventParticipate = async (req, res) => {
 };
 
 exports.updateFavourites = async (req, res) => {
-    try { } catch (err) {
+    try {
+        const { userId, eventId } = req.body;
+
+        // Validate input
+        if (!userId || !eventId) {
+            return res.status(400).json({ message: "userId and eventId are required" });
+        }
+
+        // Find user and event
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        const event = await Events.findById(eventId);
+        if (!event) return res.status(404).json({ message: "Event not found" });
+
+        const isEvent = user.favourite.some(
+            (id) => id.toString() === event._id.toString()
+        );
+
+        if (isEvent) {
+            user.favourite = user.favourite.filter(
+                (id) => id.toString() !== event._id.toString()
+            );
+
+            await user.save();
+
+            return res.status(200).json({
+                message: "Removed from Favourites"
+            });
+
+        } else{
+
+            user.favourite.push(event._id);
+
+            await user.save();
+
+            return res.status(200).json({
+                message: "Added to Favourites"
+            });
+
+        }
+
+    } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
