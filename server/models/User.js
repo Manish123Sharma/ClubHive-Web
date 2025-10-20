@@ -57,6 +57,12 @@ const UserSchema = new Schema({
             ref: 'Admin'
         }
     ],
+    favourite: [
+        {
+            type: SchemaTypes.ObjectId,
+            ref: 'Events'
+        }
+    ],
     state: {
         type: SchemaTypes.String,
         required: true,
