@@ -13,5 +13,9 @@ router.post('/profilePicAdmin', updateProfileAdminController.uploadProfilePicAdm
 
 router.post('/coverPic', updateProfileController.uploadCoverPic);
 
+router.post('/following', updateProfileController.updateFollwing);
+
+router.post('/eventsPart', updateProfileController.updateEventParticipate);
+
 
 module.exports = router;
