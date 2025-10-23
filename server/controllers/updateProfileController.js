@@ -237,7 +237,7 @@ exports.updateFavourites = async (req, res) => {
                 message: "Removed from Favourites"
             });
 
-        } else{
+        } else {
 
             user.favourite.push(event._id);
 
@@ -248,6 +248,47 @@ exports.updateFavourites = async (req, res) => {
             });
 
         }
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+exports.socialLinks = async (req, res) => {
+    try {
+
+        const { userId, instagram, twitter, facebook } = req.body;
+
+        if (!userId) {
+            return res.status(400).json({ message: "userId is required" });
+        }
+
+        // Prepare update object dynamically
+        const updateFields = {};
+        if (instagram !== undefined) updateFields["socialLinks.instagram"] = instagram;
+        if (twitter !== undefined) updateFields["socialLinks.twitter"] = twitter;
+        if (facebook !== undefined) updateFields["socialLinks.facebook"] = facebook;
+
+        if (Object.keys(updateFields).length === 0) {
+            return res.status(400).json({ message: "No social link provided to update" });
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $set: updateFields },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const { password: _, ...userWithoutPass } = updatedUser.toObject();
+        res.status(200).json({
+            success: true,
+            message: "Social links updated successfully",
+            user: userWithoutPass
+        });
 
     } catch (err) {
         res.status(500).json({ message: err.message });
