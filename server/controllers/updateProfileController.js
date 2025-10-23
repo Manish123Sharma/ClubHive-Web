@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const Admin = require('../models/Admin');
 const Events = require('../models/Event');
 const fs = require('fs');
 const multer = require("multer");
