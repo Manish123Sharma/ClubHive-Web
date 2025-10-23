@@ -9,7 +9,8 @@ const EventSchema = new Schema({
     },
     organizer_id: {
         type: SchemaTypes.ObjectId,
-        required: true
+        required: true,
+        ref: 'Admin'
     },
     city: {
         type: SchemaTypes.String,
