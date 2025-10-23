@@ -19,5 +19,7 @@ router.post('/eventsPart', updateProfileController.updateEventParticipate);
 
 router.post('/favourite', updateProfileController.updateFavourites);
 
+router.post('/socialLinks', updateProfileController.socialLinks);
+
 
 module.exports = router;
