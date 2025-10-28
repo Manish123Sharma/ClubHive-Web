@@ -90,7 +90,7 @@ Manish Kumar Sharma
 ✅ This README includes:
 - Features  
 - Tech stack  
-- Screenshots section (you can replace with your actual images later)  
+- Screenshots section
 - Setup steps  
 - API reference  
 - Future improvements  
